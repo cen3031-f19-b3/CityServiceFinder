@@ -82,3 +82,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
  - Hunter Jarrell <hunter.jarrell@ufl.edu>
  - Alex Shuping <alexandershuping@ufl.edu>
  - Nathan Schwartz <schwartznathan@ufl.edu>
+ - Xander Mead <a.mead@ufl.edu>
