@@ -33,7 +33,7 @@ This app can be deployed directly to heroku since there is a script defined in p
 #### `package.json` - Defines npm behaviors like the scripts defined in the next section of the README
 #### `.gitignore` - Tells git which files to ignore
 #### `README` - This file!
-
+Xander Mead a.mead@ufl.edu
 
 ## Available Scripts
 
