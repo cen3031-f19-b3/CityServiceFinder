@@ -80,3 +80,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## Authors
  - Hunter Jarrell <hunter.jarrell@ufl.edu>
+ - Alex Shuping <alexandershuping@ufl.edu>
