@@ -33,7 +33,6 @@ This app can be deployed directly to heroku since there is a script defined in p
 #### `package.json` - Defines npm behaviors like the scripts defined in the next section of the README
 #### `.gitignore` - Tells git which files to ignore
 #### `README` - This file!
-## Sam Meyerson <sammeyerson@ufl.edu>
 
 ## Available Scripts
 
@@ -83,3 +82,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
  - Alex Shuping <alexandershuping@ufl.edu>
  - Nathan Schwartz <schwartznathan@ufl.edu>
  - Xander Mead <a.mead@ufl.edu>
+ - Erin Wilhjelm <erin.wilhjelm@ufl.edu>
+ - Sam Meyerson <sammeyerson@ufl.edu>
