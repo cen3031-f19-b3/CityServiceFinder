@@ -35,7 +35,7 @@ This app can be deployed directly to heroku since there is a script defined in p
 #### `README` - This file!
 <<<<<<< HEAD
 
-Erin Wilhjelm erin.wilhjelm@ufl.edu
+
 =======
 ## Sam Meyerson <sammeyerson@ufl.edu>
 >>>>>>> cf3333175fe907ab0f02516d03545060c3f94c25
