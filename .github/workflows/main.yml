@@ -28,6 +28,6 @@ jobs:
         CI: true
     - name: backend test
       run: |
-        yarn workspace backend test
+        yarn workspace server test
       env:
         CI: true
