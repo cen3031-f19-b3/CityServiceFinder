@@ -1,3 +1,26 @@
+.topnav {
+
+  background-color: black;
+  height: 54px;
+
+}
+
+.topnav-logo {
+  height: 50px;
+  width: 60px;
+  position: absolute;
+
+
+}
+
+.top-name {
+
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-size: 1.5vw;
+
+}
 
 #wrapper {
     display: grid;
