@@ -4,5 +4,13 @@
 module.exports = {
     db: {
         uri: '', //place the URI of your mongo database here.
-    }
+    },
+    mail: {
+        username: '',
+        key: '',
+        public_key: '',
+        from: '',
+        to: [''],
+        domain: '',
+    },
 };
