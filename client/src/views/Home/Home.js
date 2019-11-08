@@ -1,23 +1,49 @@
 import React from 'react';
-import logo from '../../assets/logo.svg';
+import heart from '../../assets/heart.jpg';
 import './Home.css';
+import Button from 'react-bootstrap/Button';
 
 function Home() {
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                </a>
-            </header>
+          <div className="container-fluid">
+            <div className="landing-page">
+              <div className="body-page">
+
+                    <img src={heart} className="heart" alt="HelpingHand" />
+
+                <div className="body-text">
+                    <p>Life can get tough sometimes.
+                        We get it. We're here to help.
+                        Find free resources here.
+                    </p>
+                </div>
+
+                <div className="upper-buttons">
+                  <div className="btn-group-vertical btn-block" >
+
+                    <Button href="NotFound" className="btn btn-default btn-large rounded-0 border-dark" >Find a resource now. </Button>
+
+
+                    <Button href="NotFound" className="btn btn-default btn-large rounded-0 border-dark" >What can I qualify for? </Button>
+
+                    </div>
+                  </div>
+                <div className="lower-buttons">
+                  <div className="btn-group btn-block btn-group-lg">
+
+                    <Button href="NotFound" className="btn-default btn-outline-primary btn-secondary rounded-0 border-dark" >Safe Places</Button>
+
+                    <Button href="NotFound" className="btn-default btn-outline-primary btn-secondary rounded-0 border-dark" >Hotlines</Button>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
         </div>
     );
 }
