@@ -1,11 +1,11 @@
-// import mailgun from 'mailgun-js';
-// import config from '../config/config';
 const mailgun = require('mailgun-js');
 const config = require('../config/config');
 
-
-
-
+/**
+ * Sends an email to the users specified in the config file.
+ * 
+ * @param {string} body The body of the message to send.
+ */
 const SendReportMessage = async (body) => {
     const mg = mailgun({
         apiKey: config.mail.key,
