@@ -1,12 +1,13 @@
-var mongoose = require('mongoose'),
-    schema = mongoose.Schema
+const mongoose = require('mongoose'),
+      schema = mongoose.Schema
 
-var category_schema = new Schema({
+const category_schema = new Schema({
 	name: {
 		type: String,
 		required: true
-	}
+	},
+	subcategory_of: ObjectId
 })
 
-var Category = mongoose.model('Category', category_schema)
+const Category = mongoose.model('Category', category_schema)
 module.exports = Category

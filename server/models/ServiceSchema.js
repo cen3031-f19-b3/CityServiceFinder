@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
-    schema = mongoose.Schema
+const mongoose = require('mongoose'),
+      schema = mongoose.Schema
 
-var service_schema = new Schema({
+const service_schema = new Schema({
 	name: {
 		type: String,
 		required: true
@@ -76,5 +76,5 @@ var service_schema = new Schema({
 	categories: [ObjectId]
 })
 
-var Service = mongoose.model('Service', service_schema)
+const Service = mongoose.model('Service', service_schema)
 module.exports = Service
