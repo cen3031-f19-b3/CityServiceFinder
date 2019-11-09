@@ -6,14 +6,9 @@ import path from 'path';
 import { routes } from '../routes/examples.server.routes';
 import config from './config';
 
-//     exampleRouter = require("../routes/examples.server.routes");
-
-/*
-        connect to database
-        - reference README for db uri
-    */
 mongoose.connect(process.env.DB_URI || config.db.uri, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
