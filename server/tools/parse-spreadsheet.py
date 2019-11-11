@@ -414,7 +414,7 @@ def parse_spreadsheet(sheet_file, batch=True):
 		if nb(row[1]['Appointment Needed']):
 			app_need = check_and_recover_yn(
 				row[1]['Appointment Needed'],
-				f'Appointment Needed on line {index}',
+				f'Appointment Needed on line {index+3}',
 				batch
 			)
 			if app_need == 1:
@@ -441,7 +441,7 @@ def parse_spreadsheet(sheet_file, batch=True):
 		if nb(row[1]['Application Needed']):
 			app_need = check_and_recover_yn(
 				row[1]['Application Needed'],
-				f'Application Needed on line {index}',
+				f'Application Needed on line {index+3}',
 				batch
 			)
 			if app_need == 1:
@@ -455,7 +455,7 @@ def parse_spreadsheet(sheet_file, batch=True):
 		if nb(row[1]['Application Online']):
 			app_need = check_and_recover_yn(
 				row[1]['Application Online'],
-				f'Application Online on line {index}',
+				f'Application Online on line {index+3}',
 				batch
 			)
 			if app_need == 1:
@@ -469,7 +469,7 @@ def parse_spreadsheet(sheet_file, batch=True):
 		if nb(row[1]['Application In Person']):
 			app_need = check_and_recover_yn(
 				row[1]['Application In Person'],
-				f'Application In Person on line {index}',
+				f'Application In Person on line {index+3}',
 				batch
 			)
 			if app_need == 1:
@@ -495,7 +495,7 @@ def parse_spreadsheet(sheet_file, batch=True):
 		if nb(row[1]['United Way Approval']):
 			uwa = check_and_recover_yn(
 				row[1]['United Way Approval'],
-				f'United Way Approval on line {index}',
+				f'United Way Approval on line {index+3}',
 				batch
 			)
 
