@@ -1,0 +1,15 @@
+{
+
+	"_comment_delete_me": "NOTE: This file can specify options for the upload script without having to manually write them on the command line. All options here are overridden by command-line options. Run 'parse-spreadsheet.py -h' for help.",
+
+	"spreadsheet": "example.xlsx",
+	"batch_mode": false,
+	"db": {
+		"proto": "mongodb",
+		"host": "db.example.com",
+		"auth_db": "example",
+		"db": "example",
+		"user": "example_user",
+		"pwd": "example_password"
+	}
+}

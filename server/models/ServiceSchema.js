@@ -26,32 +26,20 @@ const service_schema = new Schema({
 		}
 	}],
 	phone_numbers: [{
-		contact: {
-			type: String,
-			required: false
-		},
+		contact: String,
+		description: String,
 		number: {
 			type: String,
 			required: true
 		}
 	}],
-	services_freeform: {
-		type: String,
-		required: false
-	},
-	eligibility_criteria: {
-		type: String,
-		required: false
-	},
+	services_freeform: String,
+	eligibility_criteria_freeform: String,
 	emails: [String],
 	bus_routes: [String],
 	website: [String],
 	walk_ins: String,
-	hours: [{
-		start: Date,
-		end: Date,
-		note: String
-	}],
+	hours: [String],
 	appointment: {
 		is_required: Boolean,
 		phone: String,
@@ -70,7 +58,7 @@ const service_schema = new Schema({
 		other_info: String
 	},
 	cost_info: String,
-	translation_available: Boolean,
+	translation_available: String,
 	united_way_approval: Boolean,
 	additional_information: String,
 	categories: [ObjectId]
