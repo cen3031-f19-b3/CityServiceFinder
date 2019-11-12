@@ -11,10 +11,14 @@ import thunderstorm from '../assets/thunderstorm-light.png';
 import bus from '../assets/bus-alt.png';
 import meetingroom from '../assets/meeting-room.png';
 import question from '../assets/question.png';
+import './CategoryPage.css';
+
 
 function CategoryPage()
 {
+
         return(
+
             <div>
                 <main>
                     <p>
@@ -22,16 +26,17 @@ function CategoryPage()
                     </p>
                     <CardGroup>
                         <Card>
+                        
                             <Card.Body>
-                                <Card.Title>Child and Families</Card.Title>
+                                <Card.Title >Family Services</Card.Title>
                                 <Card.Link href="./childandfamilies">
-                                    <Card.Img variant="top" src={child} />
+                                    <Card.Img variant="top" src={child}  className = "Image"/>
                                 </Card.Link>
                             </Card.Body>
                         </Card>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Education</Card.Title>
+                                <Card.Title  >Education</Card.Title>
                                 <Card.Link href="./education">
                                     <Card.Img variant="top" src={school} />
                                 </Card.Link>
@@ -39,7 +44,7 @@ function CategoryPage()
                         </Card>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Financials</Card.Title>
+                                <Card.Title>Finance</Card.Title>
                                 <Card.Link href="./finanacials">
                                     <Card.Img variant="top" src={moneybillalt} />
                                 </Card.Link>
@@ -57,7 +62,7 @@ function CategoryPage()
                         </Card>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Job</Card.Title>
+                                <Card.Title>Jobs</Card.Title>
                                 <Card.Link href="./job">
                                     <Card.Img variant="top" src={addresscard} />
                                 </Card.Link>
@@ -65,7 +70,7 @@ function CategoryPage()
                         </Card>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Legal</Card.Title>
+                                <Card.Title>Legal Services</Card.Title>
                                 <Card.Link href="./legal">
                                     <Card.Img variant="top" src={balancescale} />
                                 </Card.Link>
@@ -75,7 +80,7 @@ function CategoryPage()
                     <CardGroup>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Crisis Events</Card.Title>
+                                <Card.Title>Crisis Services </Card.Title>
                                 <Card.Link href="./crisisevents">
                                     <Card.Img variant="top" src={thunderstorm} />
                                 </Card.Link>
@@ -83,7 +88,7 @@ function CategoryPage()
                         </Card>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Transportation</Card.Title>
+                                <Card.Title> Transportation</Card.Title>
                                 <Card.Link href="./transportation">
                                     <Card.Img variant="top" src={bus} />
                                 </Card.Link>
@@ -101,7 +106,7 @@ function CategoryPage()
                         <Card>
                             <Card.Body>
                                 <Card.Title>Other</Card.Title>
-                                <Card.Link href="./other">
+                                <Card.Link href="./other" >
                                     Card Link
                                 </Card.Link>
                             </Card.Body>
@@ -109,6 +114,9 @@ function CategoryPage()
              </main>
             </div>
         )
+
+    
+
     
 }
 export default CategoryPage;
