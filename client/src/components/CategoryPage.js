@@ -7,6 +7,10 @@ import addresscard from '../assets/address-card.png';
 import briefcasemedical from '../assets/briefcase-medical.png';
 import school from '../assets/school.png';
 import child from '../assets/child.png';
+import thunderstorm from '../assets/thunderstorm-light.png';
+import bus from '../assets/bus-alt.png';
+import meetingroom from '../assets/meeting-room.png';
+import question from '../assets/question.png';
 
 function CategoryPage()
 {
@@ -73,7 +77,7 @@ function CategoryPage()
                             <Card.Body>
                                 <Card.Title>Crisis Events</Card.Title>
                                 <Card.Link href="./crisisevents">
-                                    Card Link
+                                    <Card.Img variant="top" src={thunderstorm} />
                                 </Card.Link>
                             </Card.Body>
                         </Card>
@@ -81,7 +85,7 @@ function CategoryPage()
                             <Card.Body>
                                 <Card.Title>Transportation</Card.Title>
                                 <Card.Link href="./transportation">
-                                    Card Link
+                                    <Card.Img variant="top" src={bus} />
                                 </Card.Link>
                             </Card.Body>
                         </Card>
@@ -89,7 +93,7 @@ function CategoryPage()
                             <Card.Body>
                                 <Card.Title>Basic Needs</Card.Title>
                                 <Card.Link href="./basicneeds">
-                                    Card Link
+                                    <Card.Img variant="top" src={meetingroom} />
                                 </Card.Link>
                             </Card.Body>
                         </Card>
