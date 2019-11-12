@@ -3,8 +3,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import path from 'path';
-import { routes } from '../routes/examples.server.routes';
 import config from './config';
+
+import { ServiceRoutes } from '../routes/ServiceRoutes';
 
 mongoose.connect(process.env.DB_URI || config.db.uri, {
   useNewUrlParser: true,
@@ -22,8 +23,7 @@ app.use(morgan('dev'));
 // body parsing middleware
 app.use(bodyParser.json());
 
-// add a router
-app.use('/api/example', routes);
+app.use('/api/services', ServiceRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files

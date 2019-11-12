@@ -85,4 +85,4 @@ const serviceSchema = new Schema({
   categories: [ObjectId]
 });
 
-export default mongoose.model<IService>('Service', serviceSchema);
+export const ServiceModel = mongoose.model<IService>('Service', serviceSchema);
