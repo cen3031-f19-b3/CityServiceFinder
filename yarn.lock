@@ -9126,7 +9126,7 @@ react-transition-group@^4.0.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.10.1:
+react@^16.11.0:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
   integrity sha512-M5Y8yITaLmU0ynd0r1Yvfq98Rmll6q8AxaEe88c8e7LxO8fZ2cNgmFt0aGAS9wzf1Ao32NKXtCl+/tVVtkxq6g==
@@ -9134,6 +9134,11 @@ react@^16.10.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
+
+reactdom@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/reactdom/-/reactdom-2.0.0.tgz#beeac4d698e3bf3ff0523c79d336a5ff2d532036"
+  integrity sha512-uMNDdGgUECyHQwuVyt3HBAjFt07U+rKy1zFN56skgcPt7/PODbLN7OkMCevgwkX3LsGalA4/757DSVp6DX4dzA==
 
 read-pkg-up@^2.0.0:
   version "2.0.0"

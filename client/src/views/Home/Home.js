@@ -22,7 +22,7 @@ function Home() {
                 <div className="upper-buttons">
                   <div className="btn-group-vertical btn-block" >
 
-                    <Button href="NotFound" className="btn btn-default btn-large rounded-0 border-dark" >Find a resource now. </Button>
+                    <Button href="/categories" className="btn btn-default btn-large rounded-0 border-dark">Find a resource now. </Button>
 
 
                     <Button href="NotFound" className="btn btn-default btn-large rounded-0 border-dark" >What can I qualify for? </Button>
