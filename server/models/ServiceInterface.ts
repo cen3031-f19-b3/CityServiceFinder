@@ -14,12 +14,6 @@ export interface IPhoneNumber extends Types.Subdocument {
     number: string;
 }
 
-export interface IHour extends Types.Subdocument {
-    start?: Date;
-    end?: Date;
-    note?: string;
-}
-
 export interface IAppointment extends Types.Subdocument {
     is_required: boolean;
     phone: string;
@@ -48,12 +42,12 @@ export interface IService extends Document {
     bus_routes: string[];
     website: string[];
     walk_ins: string;
-    hours: IHour[];
+    hours: string[];
     appointment: IAppointment;
     service_area: string;
     application: IApplication;
     cost_info: string;
-    translation_available: boolean;
+    translation_available: string;
     united_way_approval: boolean;
     additional_information: string;
     categories: ICategory[];
