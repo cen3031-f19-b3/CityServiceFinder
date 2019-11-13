@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
 import moneybillalt from '../assets/money-bill-alt.png';
 import balancescale from '../assets/balance-scale.png';
 import addresscard from '../assets/address-card.png';
