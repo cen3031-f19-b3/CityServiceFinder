@@ -33,15 +33,15 @@ function CategoryPage()
                         What do you need help with?
                     </p>
 										<div className="d-flex flex-wrap">
-											<ServiceButton text={"Family Services"} img={child} link="./childandfamilies" />
-											<ServiceButton text={"Education"} img={school} link="./education" />
-											<ServiceButton text={"Finance"} img={moneybillalt} link="./financials" />
-											<ServiceButton text={"Health and Wellness"} img={briefcasemedical} link="./healthandwellness" />
-											<ServiceButton text={"Jobs"} img={addresscard} link="./job" />
-											<ServiceButton text={"Legal Services"} img={balancescale} link="./legal" />
-											<ServiceButton text={"Crisis Services"} img={thunderstorm} link="./crisisevents" />
-											<ServiceButton text={"Transportation"} img={bus} link="./transportation" />
-											<ServiceButton text={"Basic Needs"} img={meetingroom} link="./basicneeds" />
+											<ServiceButton text={"Family Services"} img={child} link="./cat/childandfamilies" />
+											<ServiceButton text={"Education"} img={school} link="./cat/education" />
+											<ServiceButton text={"Finance"} img={moneybillalt} link="./cat/financials" />
+											<ServiceButton text={"Health and Wellness"} img={briefcasemedical} link="./cat/healthandwellness" />
+											<ServiceButton text={"Jobs"} img={addresscard} link="./cat/job" />
+											<ServiceButton text={"Legal Services"} img={balancescale} link="./cat/legal" />
+											<ServiceButton text={"Crisis Services"} img={thunderstorm} link="./cat/crisisevents" />
+											<ServiceButton text={"Transportation"} img={bus} link="./cat/transportation" />
+											<ServiceButton text={"Basic Needs"} img={meetingroom} link="./cat/basicneeds" />
 										</div>
              </main>
             </div>

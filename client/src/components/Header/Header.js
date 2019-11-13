@@ -7,7 +7,7 @@ import home from '../../assets/home-alt.png';
 const Header = () => {
     return (
     <div className='container-fluid'>
-      <div class="col-xl">
+      <div className="col-xl">
         <div className='topnav'>
             {/* Logo */}
             <Link id="logo-link" to="/">
