@@ -14,7 +14,8 @@ div.service-button-main{
 	height: 8em;
 	margin: 0.1em;
 
-	transition: border 0.5s;
+	transition: border 0.2s;
+	transition-timing-function: linear;
 }
 
 a.service-button:hover div.service-button-main{
