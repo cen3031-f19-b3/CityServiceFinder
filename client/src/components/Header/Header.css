@@ -1,7 +1,8 @@
 .topnav {
 
-  background-color: black;
+  background-color: white;
   height: 54px;
+  border-bottom: 4px solid#074b69;
 
 }
 
@@ -16,9 +17,11 @@
 .top-name {
 
   text-align: center;
-  color: white;
+  color: black;
   font-size: 20px;
-  font-size: 1.5vw;
+  font-size: 2vw;
+  font-weight: 800;
+  
 
 }
 
@@ -123,7 +126,7 @@
 }
 
 
-p {
+p.top-name {
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 6px;
