@@ -44,14 +44,6 @@ function CategoryPage()
 											<ServiceButton text={"Transportation"} img={bus} link="./transportation" />
 											<ServiceButton text={"Basic Needs"} img={meetingroom} link="./basicneeds" />
 										</div>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Other</Card.Title>
-                                <Card.Link href="./other" >
-                                    Card Link
-                                </Card.Link>
-                            </Card.Body>
-                        </Card>
              </main>
             </div>
         )

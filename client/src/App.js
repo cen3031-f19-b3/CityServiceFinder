@@ -5,6 +5,7 @@ import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import CategoryPage from "./components/CategoryPage"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 
 
 const App = () => {
