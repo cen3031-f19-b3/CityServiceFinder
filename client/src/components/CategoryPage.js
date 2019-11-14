@@ -19,10 +19,10 @@ function CategoryPage()
 
         return(
 
-            <div>
+            <div className="cat-page">
                 <main>
                     <p>
-                        What do you need help with?
+                        Select a category to find available services.
                     </p>
 										<div className="d-flex flex-wrap">
 											<ServiceButton text={"Family Services"} img={"child"} link="./cat/childandfamilies" />
