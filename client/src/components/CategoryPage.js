@@ -34,6 +34,7 @@ function CategoryPage()
 											<ServiceButton text={"Crisis Services"} img={"thunderstorm"} link="./cat/crisisevents" />
 											<ServiceButton text={"Transportation"} img={"bus-alt"} link="./cat/transportation" />
 											<ServiceButton text={"Basic Needs"} img={"handshake"} link="./cat/basicneeds" />
+											<ServiceButton text={"Other"} img={"ellipsis-v"} link="./cat/other" />
 										</div>
              </main>
             </div>
