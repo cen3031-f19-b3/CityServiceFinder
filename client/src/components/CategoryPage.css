@@ -30,10 +30,9 @@ a.service-button:hover p{
 	color: #074b69;
 }
 
-div.service-button-main img{
-	width: 6em;
-	display: block;
-	margin: auto;
+div.service-button-main i{
+	text-align: center;
+	margin-top: 0.3em;
 }
 
 div.service-button-main p{
