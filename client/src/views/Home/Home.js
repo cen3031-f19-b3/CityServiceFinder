@@ -1,5 +1,4 @@
 import React from 'react';
-import heart from '../../assets/heart.jpg';
 import './Home.css';
 import Button from 'react-bootstrap/Button';
 
