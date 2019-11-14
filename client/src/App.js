@@ -14,11 +14,11 @@ const App = () => {
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/Home" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/">
-          <Redirect to="/Home" />
+          <Redirect to="/home" />
         </Route>
-        <Route exact path="/Categories" component={CategoryPage}/>
+        <Route exact path="/cat" component={CategoryPage}/>
 				<Route path="/cat/:category" component={MapPageWrapper} />
         <Route component={NotFound}/>
       </Switch>
