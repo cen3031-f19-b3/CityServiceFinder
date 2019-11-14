@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import path from 'path';
+import cors from 'cors';
 import config from './config';
 
 import { ServiceRoutes } from '../routes/ServiceRoutes';
@@ -19,6 +20,9 @@ const app = express();
 
 // enable request logging for development debugging
 app.use(morgan('dev'));
+
+// enable CORS
+app.use(cors({origin: '*'}));
 
 // body parsing middleware
 app.use(bodyParser.json());
