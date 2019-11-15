@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Header.css';
-import home from '../../assets/home-alt.png';
 
 
 const Header = () => {
@@ -9,11 +7,10 @@ const Header = () => {
     <div className='container-fluid'>
       <div class="col-xl">
         <div className='topnav'>
-            {/* Logo */}
-            <Link id="logo-link" to="/">
-                <img className="topnav-logo" src={ home } alt="Home" />
-            </Link>
-              <p className="top-name">myGNV Resource Finder</p>
+					<p className="top-name">
+						<a id="logo-link" href="/"> <i className="fal fa-home fa-3x" /> </a>
+						<span>myGNV Resource Finder</span>
+					</p>
         </div>
       </div>
     </div>

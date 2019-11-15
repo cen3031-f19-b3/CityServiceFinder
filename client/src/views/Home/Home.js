@@ -1,5 +1,4 @@
 import React from 'react';
-import heart from '../../assets/heart.jpg';
 import './Home.css';
 import Button from 'react-bootstrap/Button';
 
@@ -10,7 +9,7 @@ function Home() {
             <div className="landing-page">
               <div className="body-page">
 
-                    <img src={heart} className="heart" alt="HelpingHand" />
+										<i className="heart fal fa-hand-holding-heart fa-7x" />
 
                 <div className="body-text">
                     <p>Life can get tough sometimes.

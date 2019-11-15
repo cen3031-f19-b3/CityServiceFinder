@@ -2,27 +2,31 @@
 
   background-color: white;
   height: 54px;
-  border-bottom: 4px solid#074b69;
-
+  border-bottom: 4px solid #074b69;
 }
 
 .topnav-logo {
   height: 50px;
   width: 60px;
   position: absolute;
-
-
 }
 
-.top-name {
+p.top-name {
+	text-align: left;
+}
 
-  text-align: center;
-  color: black;
-  font-size: 20px;
-  font-size: 2vw;
-  font-weight: 800;
-  
+.top-name a {
+	color: black;
+	transition: color 0.5s;
+}
 
+.top-name a:hover {
+	text-decoration: none;
+}
+
+.top-name span {
+	text-align: center;
+	padding-left: 2em;
 }
 
 #wrapper {
