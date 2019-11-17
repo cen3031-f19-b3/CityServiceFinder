@@ -1,6 +1,7 @@
-import React from 'react';
-import './CategoryPage.css';
+import React, { useState } from 'react';
+import { GetAllCategories } from '../util/Categories'
 
+import './CategoryPage.css';
 
 function ServiceButton({text, img, link}){
 	var img_txt = "fal fa-" + img + " fa-3x"
@@ -16,32 +17,52 @@ function ServiceButton({text, img, link}){
 
 function CategoryPage()
 {
+	const [data, set_data] = useState([])
+	const [load_done, set_load_done] = useState(false)
 
-        return(
+	if(!load_done){
+		GetAllCategories()
+			.then((categories) => {
+				set_data(categories)
+				set_load_done(true)
+			})
+			.catch((e) => console.error(e))
 
-            <div className="cat-page">
-                <main>
-                    <p>
-                        Select a category to find available services.
-                    </p>
-										<div className="d-flex flex-wrap">
-											<ServiceButton text={"Family Services"} img={"child"} link="./cat/childandfamilies" />
-											<ServiceButton text={"Education"} img={"book"} link="./cat/education" />
-											<ServiceButton text={"Finance"} img={"money-check-edit"} link="./cat/financials" />
-											<ServiceButton text={"Health Services"} img={"briefcase-medical"} link="./cat/healthandwellness" />
-											<ServiceButton text={"Jobs"} img={"clipboard"} link="./cat/job" />
-											<ServiceButton text={"Legal Services"} img={"landmark"} link="./cat/legal" />
-											<ServiceButton text={"Crisis Services"} img={"shield"} link="./cat/crisisevents" />
-											<ServiceButton text={"Transport"} img={"bus-alt"} link="./cat/transportation" />
-											<ServiceButton text={"Basic Needs"} img={"utensils-alt"} link="./cat/basicneeds" />
-											<ServiceButton text={"Other"} img={"ellipsis-v"} link="./cat/other" />
-										</div>
-             </main>
-            </div>
-        )
+		return(
+			<div className="cat-page">
+				<main>
+					<h1>Loading...</h1>
+				</main>
+			</div>
+		)
+	}
 
-    
+	const categories_list = data
+		.filter(category => {
+			return category["subcategory_of"].length === 0
+		})
+		.map(category => {
+			return(
+				<ServiceButton 
+					text={category.name}
+					img={category.img}
+					link={"./cat/" + category.link}
+				/>
+			)
+		})
 
-    
+	return(
+		<div className="cat-page">
+			<main>
+				<p>
+					Select a category to find available services.
+				</p>
+				<div className="d-flex flex-wrap">
+					{categories_list}
+				</div>
+			</main>
+		</div>
+	)
 }
+
 export default CategoryPage;
