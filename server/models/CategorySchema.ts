@@ -8,7 +8,18 @@ const categorySchema = new Schema({
     required: true,
     type: String
   },
-  subcategory_of: ObjectId
+  subcategory_of: {
+    required: true,
+    type: [ObjectId]
+  },
+  link: {
+    required: true,
+    type: String
+  },
+  img: {
+    required: true,
+    type: String
+  }
 });
 
-export default mongoose.model<ICategory>('Category', categorySchema);
+export const CategoryModel = mongoose.model<ICategory>('Category', categorySchema);

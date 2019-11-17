@@ -7,6 +7,7 @@ import cors from 'cors';
 import config from './config';
 
 import { ServiceRoutes } from '../routes/ServiceRoutes';
+import { CategoryRoutes } from '../routes/CategoryRoutes';
 
 mongoose.connect(process.env.DB_URI || config.db.uri, {
   useNewUrlParser: true,
@@ -28,6 +29,7 @@ app.use(cors({origin: '*'}));
 app.use(bodyParser.json());
 
 app.use('/api/services', ServiceRoutes);
+app.use('/api/categories', CategoryRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
