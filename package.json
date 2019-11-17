@@ -9,7 +9,8 @@
     "server": "yarn workspace server start",
     "start-dev": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\"",
     "build": "yarn workspace client build && yarn workspace server build",
-    "start": "node server/dist/server.js"
+    "start": "node server/dist/server.js",
+    "heroku-prebuild": "cp server/config/config.example.ts server/config/config.ts"
   },
   "dependencies": {
     "concurrently": "^5.0.0"
