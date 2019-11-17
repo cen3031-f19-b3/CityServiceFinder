@@ -3,15 +3,15 @@ import config from '../config/config';
 
 export const SendReportMessage = async (body: string) => {
     const mg = mailgun({
-        apiKey: config.mail.key,
-        domain: config.mail.domain,
-        publicApiKey: config.mail.public_key,
+        apiKey: process.env.MAILGUN_API_KEY || config.mail.key,
+        domain: process.env.MAILGUN_DOMAIN || config.mail.domain,
+        publicApiKey: process.env.MAILGUN_PUBLIC_KEY || config.mail.public_key,
     });
 
     return mg.messages().send({
-        from: config.mail.from,
+        from: process.env.EMAIL_FROM || config.mail.from,
         subject: 'City Service App Report',
         text: body,
-        to: config.mail.to,
+        to: process.env.EMAIL_TO.split(',') || config.mail.to,
     });
 };
