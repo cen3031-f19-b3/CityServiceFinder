@@ -7,8 +7,9 @@ import path from 'path';
 
 import config from './config';
 
-import { ServiceRoutes } from '../routes/ServiceRoutes';
 import { CategoryRoutes } from '../routes/CategoryRoutes';
+import { ServiceRoutes } from '../routes/ServiceRoutes';
+import { UserRoutes } from '../routes/UserRoutes';
 
 mongoose.connect(process.env.DB_URI || config.db.uri, {
   useNewUrlParser: true,
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 
 app.use('/api/services', ServiceRoutes);
 app.use('/api/categories', CategoryRoutes);
+app.use('/api/users', UserRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files

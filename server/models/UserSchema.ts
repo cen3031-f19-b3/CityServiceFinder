@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { PassportLocalSchema, Schema } from 'mongoose';
+import * as passportLocalMongoose from 'passport-local-mongoose';
 
 import { IUser } from './UserInterface';
 
@@ -9,10 +10,10 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    password_hash: {
-        type: String,
-        required: true,
-    },
 });
 
-export const UserModel = mongoose.model<IUser>('User', userSchema);
+userSchema.plugin(passportLocalMongoose.default, {
+    usernameField: 'email',
+});
+
+export const UserModel = mongoose.model<IUser>('User', userSchema as PassportLocalSchema);
