@@ -59,7 +59,7 @@ function CategoryPage() {
 				<div className="d-flex flex-wrap">
 					{categories_list}
 				</div>
-
+				
 				<i className="heart fal fa-hand-holding-heart fa-7x" />
 
                 <div className="body-text">
