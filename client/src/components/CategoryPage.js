@@ -3,9 +3,9 @@ import { GetAllCategories } from '../util/Categories'
 
 import './CategoryPage.css';
 
-function ServiceButton({text, img, link}){
+function ServiceButton({ text, img, link }) {
 	var img_txt = "fal fa-" + img + " fa-3x"
-	return(
+	return (
 		<a className="service-button" href={link}>
 			<div className="service-button-main">
 				<p><i className={img_txt} /></p>
@@ -15,12 +15,11 @@ function ServiceButton({text, img, link}){
 	)
 }
 
-function CategoryPage()
-{
+function CategoryPage() {
 	const [data, set_data] = useState([])
 	const [load_done, set_load_done] = useState(false)
 
-	if(!load_done){
+	if (!load_done) {
 		GetAllCategories()
 			.then((categories) => {
 				set_data(categories)
@@ -28,7 +27,7 @@ function CategoryPage()
 			})
 			.catch((e) => console.error(e))
 
-		return(
+		return (
 			<div className="cat-page">
 				<main>
 					<h1>Loading...</h1>
@@ -42,8 +41,8 @@ function CategoryPage()
 			return category["subcategory_of"].length === 0
 		})
 		.map(category => {
-			return(
-				<ServiceButton 
+			return (
+				<ServiceButton
 					text={category.name}
 					img={category.img}
 					link={"./cat/" + category.link}
@@ -51,16 +50,28 @@ function CategoryPage()
 			)
 		})
 
-	return(
+	return (
+		
 		<div className="cat-page">
+
 			<main>
-				<p>
-					Select a category to find available services.
-				</p>
+
 				<div className="d-flex flex-wrap">
 					{categories_list}
 				</div>
+
+				<i className="heart fal fa-hand-holding-heart fa-7x" />
+
+                <div className="body-text">
+                    <p>Life can get tough sometimes.
+                        We get it. We're here to help.
+                        Find free resources here.
+                    </p>
+                </div>
+
 			</main>
+
+
 		</div>
 	)
 }

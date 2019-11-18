@@ -1,5 +1,9 @@
 a.service-button{
-	margin: auto;
+	width: 9em;
+	height: 9em;
+	margin: .5em;
+	margin-bottom: 1px;
+	margin-top: 1em;
 	display: block;
 }
 
@@ -8,19 +12,22 @@ a.service-button:hover{
 }
 
 div.service-button-main{
-	border: 4px solid #c2c2c2;
+	border: 4px solid #1dc2ae;
+	position: absolute;
 	border-radius: 1em;
 	width: 9em;
 	height: 9em;
 	margin: 0.1em;
-	margin-bottom: 1em;
+	margin-bottom: 0em;
+	margin-top: 15em;
+	padding: 10px;
 
 	transition: border 0.2s;
 	transition-timing-function: linear;
 }
 
 a.service-button:hover div.service-button-main{
-	border: 4px solid #1dc2ae;
+	border: 7px solid #1dc2ae;
 }
 
 a.service-button p{
@@ -46,7 +53,7 @@ div.cat-page {
 }
 
 .category-list img.card-img-top {
-	with: 2em;
+	width: 1em;
 }
 
 .card-body {
@@ -58,5 +65,39 @@ div.cat-page {
 }
 
 .card-title {
-    color: #074b69;
+	color: #074b69;
+
 }
+
+.body-text {
+	position: absolute;
+	text-align: center;
+	font-size: 2vw;
+	width: 30vw;
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 600;
+	top: 58px;
+	top:17vh;
+	left:0;
+	right:0;
+	margin-left: auto;
+	margin-right: auto;
+  
+  }
+
+  .heart {
+
+	mix-blend-mode: multiply;
+  
+	height: 25vh;
+	width: 25vh;
+	position: absolute;
+	left:14vw;
+	top: 54px;
+	top:15vh;
+  
+  
+  
+	margin: auto;
+  
+  }

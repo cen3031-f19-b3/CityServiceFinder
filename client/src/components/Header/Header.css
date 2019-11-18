@@ -12,7 +12,8 @@
 }
 
 p.top-name {
-	text-align: left;
+    text-align: left;
+    font-weight: 900;
 }
 
 .top-name a {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch, Redirect, BrowserRouter as Router, useParams } from 'react-router-dom';
-import Home from "./views/Home/Home"
 import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import CategoryPage from "./components/CategoryPage"
@@ -14,11 +13,10 @@ const App = () => {
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/home" component={Home} />
+        <Route exact path="/cat" component={CategoryPage} />
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/cat" />
         </Route>
-        <Route exact path="/cat" component={CategoryPage}/>
 				<Route path="/cat/:category" component={MapPageWrapper} />
         <Route component={NotFound}/>
       </Switch>
