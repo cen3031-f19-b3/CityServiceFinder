@@ -69,12 +69,11 @@ div.intro-text {
 
 div.intro-text div.header-image {
     margin: auto;
-    margin-right: 1rem;
+		margin-bottom: 1.5rem;
 }
 
 div.intro-text div.body-text {
     width: 14em;
     margin: auto;
-    margin-left: 1rem;
     text-align: center;
 }
