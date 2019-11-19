@@ -24,16 +24,15 @@ function ServiceList({data, cat, loading_done}) {
 	.map(service => {
 		return(
 			<li>
-			<Link className="link-to-service-page" to={`/service/${service.name}`}>
-			{service.name}
-			</Link>
+				<Link className="link-to-service-page" to={`/service/${service.name}`}>
+					{service.name}
+				</Link>
 			</li>
 		)
 	})
 
 	return(
 		<ul className="service-list">
-
 			{services_list}
 		</ul>
 	)

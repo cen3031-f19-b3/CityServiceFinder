@@ -205,7 +205,7 @@ function FindHours({service}){
 }
 
 function FindPhoneNumber({service}){
-  
+
   const numOfPhoneNums=Object.keys(service.phone_numbers).length
   var numbers=[]
   if(numOfPhoneNums===0){
