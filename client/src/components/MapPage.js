@@ -1,5 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {GetAllServices} from '../util/Services'
+import './MapPage.css'
 
 function ServiceList({data, cat, loading_done}) {
 	if(!loading_done){
@@ -21,7 +23,11 @@ function ServiceList({data, cat, loading_done}) {
 	const services_list = data
 	.map(service => {
 		return(
-			<li>{service.name}</li>
+			<li>
+				<Link className="link-to-service-page" to={`/service/${service.name}`}>
+					{service.name}
+				</Link>
+			</li>
 		)
 	})
 
@@ -57,9 +63,9 @@ class MapPage extends React.Component{
 			<div className="map-page">
 				<main>
 					<p>This is the map view for the category {this.props.cat}.</p>
-					<ServiceList 
-						data={this.state.services} 
-						cat={this.props.cat} 
+					<ServiceList
+						data={this.state.services}
+						cat={this.props.cat}
 						loading_done={this.state.loading_done}
 					/>
 				</main>
