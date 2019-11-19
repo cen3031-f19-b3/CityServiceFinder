@@ -1,9 +1,10 @@
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import path from 'path';
-import cors from 'cors';
+
 import config from './config';
 
 import { ServiceRoutes } from '../routes/ServiceRoutes';
