@@ -1,52 +1,52 @@
 a.service-button{
-	margin: auto;
-	display: block;
+    margin: auto;
+    display: block;
 }
 
 a.service-button:hover{
-	text-decoration: none;
+    text-decoration: none;
 }
 
 div.service-button-main{
-	border: 4px solid #c2c2c2;
-	border-radius: 1em;
-	width: 9em;
-	height: 9em;
-	margin: 0.1em;
-	margin-bottom: 1em;
+    border: 4px solid #c2c2c2;
+    border-radius: 1em;
+    width: 9em;
+    height: 9em;
+    margin: 0.1em;
+    margin-bottom: 1em;
 
-	transition: border 0.2s;
-	transition-timing-function: linear;
+    transition: border 0.2s;
+    transition-timing-function: linear;
 }
 
 a.service-button:hover div.service-button-main{
-	border: 4px solid #1dc2ae;
+    border: 4px solid #1dc2ae;
 }
 
 a.service-button p{
-	color: #074b69;
-	margin-bottom: 0.5em;
+    color: #074b69;
+    margin-bottom: 0.5em;
 }
 
 a.service-button:hover p{
-	color: #074b69;
+    color: #074b69;
 }
 
 div.service-button-main i{
-	text-align: center;
-	margin-top: 0.3em;
+    text-align: center;
+    margin-top: 0.3em;
 }
 
 div.service-button-main p{
-	text-align: center;
+    text-align: center;
 }
 
 div.cat-page {
-	margin: 2em;
+    margin: 2em;
 }
 
 .category-list img.card-img-top {
-	with: 2em;
+    width: 1em;
 }
 
 .card-body {
@@ -59,4 +59,21 @@ div.cat-page {
 
 .card-title {
     color: #074b69;
+
+}
+
+div.intro-text {
+    margin: 2em;
+    padding: 0 3em;
+}
+
+div.intro-text div.header-image {
+    margin: auto;
+		margin-bottom: 1.5rem;
+}
+
+div.intro-text div.body-text {
+    width: 14em;
+    margin: auto;
+    text-align: center;
 }

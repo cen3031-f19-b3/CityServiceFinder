@@ -9,7 +9,7 @@ const Header = () => {
         <div className='topnav'>
 					<p className="top-name">
 						<a id="logo-link" href="/"> <i className="fal fa-home fa-3x" /> </a>
-						<span>myGNV Resource Finder</span>
+						<span>GNV Resource Directory</span>
 					</p>
         </div>
       </div>

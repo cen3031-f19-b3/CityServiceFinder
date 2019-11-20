@@ -3,6 +3,11 @@ body{
 	font-family: Open Sans Regular, sans-serif;
 }
 
+body.top-level{
+	max-width: 64rem;
+	margin: auto;
+}
+
 h1{
 	font-family: Open Sans ExtraBold;
 }
