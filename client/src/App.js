@@ -13,9 +13,9 @@ const App = () => {
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/cat" component={CategoryPage} />
-        <Route exact path="/">
-          <Redirect to="/cat" />
+        <Route exact path="/" component={CategoryPage} />
+        <Route exact path="/cat">
+          <Redirect to="/" />
         </Route>
 				<Route path="/cat/:category" component={MapPageWrapper} />
         <Route component={NotFound}/>
