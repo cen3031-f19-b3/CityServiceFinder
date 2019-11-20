@@ -4,6 +4,7 @@ import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import CategoryPage from "./components/CategoryPage"
 import MapPage from "./components/MapPage"
+import ServicePage from "./components/servicePage"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -18,6 +19,7 @@ const App = () => {
           <Redirect to="/" />
         </Route>
 				<Route path="/cat/:category" component={MapPageWrapper} />
+        <Route path="/service/:name" component={ServicePageWrapper} />
         <Route component={NotFound}/>
       </Switch>
     </Router>
@@ -28,6 +30,12 @@ function MapPageWrapper() {
 	return (
 		<MapPage cat={useParams().category} />
 	)
+}
+
+function ServicePageWrapper(){
+  return(
+    <ServicePage name={useParams().name} />
+  )
 }
 
 export default App;
