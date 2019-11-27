@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
+import session from 'express-session';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import path from 'path';
@@ -29,6 +30,14 @@ app.use(cors({origin: '*'}));
 
 // body parsing middleware
 app.use(bodyParser.json());
+
+app.use(session({ secret: process.env.SESSION_SECRET || 'secret_session' }));
+
+// Funky import here because of waiting for mongoose to finish connecting
+import passport from './passport';
+// These have to be used before the routes are setup
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api/services', ServiceRoutes);
 app.use('/api/categories', CategoryRoutes);

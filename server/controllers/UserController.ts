@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import passport = require('passport');
+import passport from 'passport';
 import { UserModel } from '../models/UserSchema';
 
 export const RegisterUser = (req: Request, res: Response) => {
@@ -15,3 +15,8 @@ export const RegisterUser = (req: Request, res: Response) => {
         }
     });
 };
+
+export const LoginUser = passport.authenticate('local', {
+    failureRedirect: '/login',
+    successRedirect: '/',
+});
