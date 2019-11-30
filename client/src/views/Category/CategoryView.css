@@ -32,6 +32,15 @@ a.service-button:hover p{
     color: #074b69;
 }
 
+div.service-button-edit{
+    text-align: right;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    z-index: 1;
+    position: relative;
+    top: 2em;
+}
+
 div.service-button-main i{
     text-align: center;
     margin-top: 0.3em;

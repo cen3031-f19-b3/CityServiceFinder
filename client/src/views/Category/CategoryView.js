@@ -4,15 +4,24 @@ import { CanUserDo } from '../../util/Auth'
 
 import './CategoryView.css';
 
-function ServiceButton({ text, img, link }) {
+function ServiceButton({ text, img, link, edit_link, id }) {
 	var img_txt = "fal fa-" + img + " fa-3x"
+	var edit_btn = null
+	console.log("Checking user permissions.")
+	if(CanUserDo("edit", `/cat/${id}`) && edit_link){
+		console.log("Enabling edit button.")
+		edit_btn = <div className="service-button-edit" href={edit_link}><i className={"fal fa-wrench"} title={`Edit ${text}`} /></div>
+	}
 	return (
-		<a className="service-button" href={link}>
-			<div className="service-button-main">
-				<p><i className={img_txt} /></p>
-				<p>{text}</p>
-			</div>
-		</a>
+		<div>
+			{edit_btn}
+			<a className="service-button" href={link} title={text}>
+				<div className="service-button-main">
+					<p><i className={img_txt} /></p>
+					<p>{text}</p>
+				</div>
+			</a>
+		</div>
 	)
 }
 
@@ -49,8 +58,10 @@ function CategoryView() {
 				<ServiceButton
 					text={category.name}
 					img={category.img}
-					link={"./cat/" + category._id}
+					link={`./cat/${category._id}`}
+					edit_link={`./cat/${category._id}/edit`}
 					key={category._id}
+					id={category._id}
 				/>
 			)
 		})
@@ -63,6 +74,7 @@ function CategoryView() {
 				text={"Create"}
 				img={"plus-circle"}
 				link={"./cat/new"}
+				edit_link={null}
 			/>
 	}
 
