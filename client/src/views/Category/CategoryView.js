@@ -13,7 +13,7 @@ function ServiceButton({ text, img, link, edit_link, id }) {
 		edit_btn = <div className="service-button-edit" href={edit_link}><i className={"fal fa-wrench"} title={`Edit ${text}`} /></div>
 	}
 	return (
-		<div>
+		<div className="service-button-wrapper">
 			{edit_btn}
 			<a className="service-button" href={link} title={text}>
 				<div className="service-button-main">

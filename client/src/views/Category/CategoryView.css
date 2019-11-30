@@ -1,3 +1,8 @@
+div.service-button-wrapper{
+    margin: auto;
+    display: block;
+}
+
 a.service-button{
     margin: auto;
     display: block;
@@ -37,8 +42,13 @@ div.service-button-edit{
     padding-right: 1em;
     padding-top: 0.5em;
     z-index: 1;
-    position: relative;
-    top: 2em;
+    float: right;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+div.service-button-edit:hover{
+    color: #1dc2ae;
 }
 
 div.service-button-main i{
