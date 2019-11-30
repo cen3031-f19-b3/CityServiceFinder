@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { GetAllCategories } from '../util/Categories'
+import { GetAllCategories } from '../../util/Categories'
 
-import './CategoryPage.css';
+import './CategoryView.css';
 
 function ServiceButton({ text, img, link }) {
   var img_txt = "fal fa-" + img + " fa-3x"
@@ -15,7 +15,7 @@ function ServiceButton({ text, img, link }) {
   )
 }
 
-function CategoryPage() {
+function CategoryView() {
   const [data, set_data] = useState([])
   const [load_done, set_load_done] = useState(false)
 
@@ -64,7 +64,7 @@ function CategoryPage() {
             <p>Life can get tough sometimes. We get it. We're here to help. Find free resources here.</p>
           </div>
         </div>
-
+        
         <div className="d-flex flex-wrap">
           {categories_list}
         </div>
@@ -77,4 +77,4 @@ function CategoryPage() {
   )
 }
 
-export default CategoryPage;
+export default CategoryView;

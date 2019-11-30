@@ -1,0 +1,109 @@
+div.login-pane{
+    width: 60%;
+    height: 100%;
+    background-color: #fff;
+    border-left: 5px solid #074b69;
+    transition: width 1s, padding 1s, border-left 1s;
+
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    padding: 0 2em;
+    padding-top: 1em;
+}
+
+div.login-pane-hidden{
+    padding-right: 0;
+    padding-left: 0;
+    border-left: 0px solid #074b69;
+}
+
+div.login-pane form{
+    position: fixed;
+    width: calc(60% - 4em);
+}
+
+div.login-pane i.panel-close{
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    width: min-content;
+    cursor: pointer;
+}
+
+div.login-pane input{
+    width: 80%;
+    margin: 1em auto;
+    padding: 0.5em;
+    border: 2px solid #c2c2c2;
+    border-radius: 5px;
+    display: block;
+    
+    transition: border 0.5s;
+}
+
+div.login-pane input:focus{
+    border: 2px solid #1dc2ae;
+}
+
+div.login-pane div.login-button {
+    width: max-content;
+    padding: 0.5em;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    color: #074b69;
+    background-color: #fff;
+    border: 1px solid #074b69;
+    border-radius: 3px;
+
+    transition: background-color 0.5s, color 0.5s;
+}
+
+div.login-pane div.login-button:hover{
+    background-color: #074b69;
+    color: #fff;
+}
+
+div.login-pane div.login-button-disabled{
+    background-color: #c2c2c2;
+    color: #888;
+    border: 1px solid #888;
+    cursor: not-allowed;
+}
+
+div.login-pane div.login-button-disabled:hover{
+    background-color: #c2c2c2;
+    color: #888;
+}
+
+div.login-pane p.pwd-toast{
+    padding: 0.3em;
+    font-size: small;
+    text-align: center;
+    border: 2px solid #e52207;
+    background-color: #f75740;
+}
+
+div.login-pane h1{
+    border-bottom: 3px solid #074b69;
+}
+
+/*@media only screen and (min-device-width : 781px) {*/
+    div.login-pane-hidden{
+        width: 0 !important;
+    }
+/*}*/
+
+/*@media only screen and (max-device-width : 780px) {
+    div.login-pane{
+        width: 100%;
+        height: 80%;
+        transition: height 1s;
+    }
+
+    div.login-pane-hidden{
+        height: 0 !important;
+    }
+}*/

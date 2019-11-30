@@ -1,7 +1,6 @@
 .topnav {
 
   background-color: white;
-  height: 54px;
   border-bottom: 4px solid #074b69;
 }
 
@@ -28,6 +27,24 @@ p.top-name {
 .top-name span {
 	text-align: center;
 	padding-left: 2em;
+}
+
+table.header-table{
+    width: 100%;
+    text-align: center;
+    font-size: 12;
+}
+
+div.topnav .header-button{
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    color: #000;
+    transition: color 0.2s;
+}
+
+div.topnav .header-button:hover{
+    color: #1dc2ae;
 }
 
 #wrapper {
