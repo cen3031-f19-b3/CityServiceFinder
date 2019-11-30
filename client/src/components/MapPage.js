@@ -21,9 +21,9 @@ function ServiceList({data, cat, loading_done}) {
 	}
 
 	const services_list = data
-	.map(service => {
+	.map((service, index) => {
 		return(
-			<li>
+			<li key={index} >
 				<Link className="link-to-service-page" to={`/service/${service.name}`}>
 					{service.name}
 				</Link>

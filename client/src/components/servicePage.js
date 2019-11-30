@@ -257,8 +257,16 @@ function FindService({data, name, loading_done}){
 			</ul>
 		)
 	}
-
+  if(name.substring(0,4)==='www.'){
+    return(
+      <div>
+        Not found.
+      </div>
+    )
+  }
   const service=data.find(service=> service.name===name);
+
+
   console.log('name: ',service.name)
   return(
     <div className="text-center">
