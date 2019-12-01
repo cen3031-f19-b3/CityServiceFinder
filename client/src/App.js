@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-d
 import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import CategoryView from "./views/Category/CategoryView"
+import UserListView from "./views/User/UserListView"
 import MapPage from "./components/MapPage"
 import ServicePage from "./components/servicePage"
 
@@ -95,6 +96,15 @@ const App = () => {
           return <ServicePage
             name={props.match.params.name}
             user={current_user}
+            {...props}
+          />
+        }} />
+
+        {/* User administration */}
+        <Route path="/users" render={(props) => {
+          return <UserListView
+            logged_in_user={current_user}
+            side_pane_open_callback={set_side_pane_contents}
             {...props}
           />
         }} />
