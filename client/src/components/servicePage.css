@@ -1,0 +1,73 @@
+.clickable-link{
+  color: #074b69;
+}
+
+.clickable-link:hover{
+  color: #1dc2ae;
+}
+
+.report-problem-button{
+  background-color: #1dc2ae;
+  text-align: right;
+  margin-bottom: 2%;
+  margin-right: 0px;
+  font-family: 'Open Sans';
+
+}
+
+.service-name-in-form{
+  background-color: white;
+  border: none;
+
+}
+
+.text{
+  font-family: 'Open Sans';
+}
+
+.report-form{
+  height: 25em;
+  width: 50%;
+  border-style:solid;
+  border-width: 3px;
+  border-color: black;
+  margin:auto;
+
+}
+
+.problem-input{
+  width: 75%;
+  height: 8em;
+
+
+}
+
+
+.service-info{
+  padding: 10px 10px 10px 10px;
+
+
+}
+.service-info h3{
+  color: #074b69;
+  font-family: 'Open Sans';
+  font-weight: 600;
+}
+
+.service-title{
+  margin: 0px auto 0;
+  max-width: 1000px;
+  width: 97%;
+  height: 5em;
+  padding: .5em;
+
+
+
+}
+
+.service-title h2{
+
+  font-family: 'Open Sans';
+  font-weight: 800;
+
+}
