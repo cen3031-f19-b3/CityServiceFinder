@@ -60,7 +60,11 @@ const App = () => {
 
         {/* Display category page at root URL */}
         <Route exact path="/" render={(props) => {
-          return <CategoryView user={current_user} {...props} />
+          return <CategoryView 
+            user={current_user} 
+            side_pane_open_callback={set_side_pane_contents}
+            {...props} 
+          />
         }} />
 
         {/* Redirect old "/cat" links to base URL */}

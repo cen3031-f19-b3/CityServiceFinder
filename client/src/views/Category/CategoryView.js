@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
 import { GetAllCategories } from '../../util/Categories'
 import { CanUserDo } from '../../util/Auth'
+import CategoryEditPane from '../../components/SidePane/CategoryEditPane'
 
 import './CategoryView.css';
 
-function edit_category(cat_id){
-	console.log(`Edit ${cat_id}`)
+function edit_category(cat, side_pane_open_callback){
+	console.log(`Edit ${cat._id}`)
+	side_pane_open_callback(
+		<CategoryEditPane 
+			category={cat}
+			commit_callback={() => {side_pane_open_callback(null)}}
+		/>
+	)
 }
 
 function del_category(cat_id){
 	console.log(`Delete ${cat_id}`)
 }
 
-function ServiceButton({ text, img, link, edit_callback, del_callback, id }) {
+function ServiceButton({ text, img, data, link, edit_callback, del_callback, side_pane_open_callback, id }) {
 	let img_txt = "fal fa-" + img + " fa-3x"
 	let edit_btn = null
 	if(CanUserDo("edit", `/cat/${id}`) && edit_callback){
-		//edit_btn = <div className="service-button-edit" onClick={() => edit_callback(id)}><i className={"fal fa-wrench"} title={`Edit ${text}`} /></div>
-		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(id)} />
+		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(data, side_pane_open_callback)} />
 	}
 	let del_btn = null
 	if(CanUserDo("delete", `/cat/${id}`) && del_callback){
-		//del_btn = <div className="service-button-delete" onClick={() => del_callback(id)}><i className={"fal fa-minus-circle"} title={`Delete ${text}`} /></div>
-		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(id)} />
+		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(data)} />
 	}
 	const btn_deck = (edit_btn || del_btn) ? <p className="btn-deck">{edit_btn} {del_btn}</p> : null;
 	return (
@@ -38,7 +43,7 @@ function ServiceButton({ text, img, link, edit_callback, del_callback, id }) {
 	)
 }
 
-function CategoryView() {
+function CategoryView({side_pane_open_callback}) {
 	const [data, set_data] = useState([])
 	const [load_done, set_load_done] = useState(false)
 
@@ -71,10 +76,12 @@ function CategoryView() {
 				<ServiceButton
 					text={category.name}
 					img={category.img}
+					data={category}
 					link={`./cat/${category._id}`}
 					edit_callback={edit_category}
 					del_callback={del_category}
 					key={category._id}
+					side_pane_open_callback={side_pane_open_callback}
 					id={category._id}
 				/>
 			)

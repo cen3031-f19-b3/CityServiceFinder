@@ -38,6 +38,18 @@ div.side-pane h1{
     border-bottom: 3px solid #074b69;
 }
 
+div.side-pane h2{
+    color: #074b69;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: unset;
+}
+
+div.side-pane .subtle-text{
+    font-size: smaller;
+    color: #777;
+}
+
 div.side-pane div.button {
     width: max-content;
     padding: 0.5em;
