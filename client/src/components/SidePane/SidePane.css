@@ -45,6 +45,10 @@ div.side-pane h2{
     font-size: unset;
 }
 
+div.side-pane table{
+    width: 100%;
+}
+
 div.side-pane .subtle-text{
     font-size: smaller;
     color: #777;
