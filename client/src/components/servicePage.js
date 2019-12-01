@@ -1,7 +1,94 @@
 import React from 'react';
 import {GetAllServices} from '../util/Services'
+//import call from 'react-native-phone-call'
 import './servicePage.css';
 
+
+
+function DisplayOtherInfo({service}){
+
+  var message='No more info available'
+  var eligibility_Criteria=''
+  if(service.services_freeform){
+    console.log('services freeform: ',service.services_freeform)
+    message=service.services_freeform
+  }
+  while(message.includes('•')){
+    if(message.includes('•')){
+      console.log('FOUND THAT THING')
+
+      message=message.replace('•', '')
+
+    }
+  }
+  if(service.eligibility_criteria_freeform){
+    eligibility_Criteria='Elgibility Criteria: '+service.eligibility_criteria_freeform
+  }
+  return(
+    <div>
+      <ul>{message}</ul>
+
+      <ul>{eligibility_Criteria}</ul>
+    </div>
+  )
+}
+
+
+function SendReportMessage(message){
+
+
+  message=document.getElementById('input-problem').value
+  console.log('Problem with: ',message)
+  window.location.reload(true);
+  return(
+    <div>
+
+    </div>
+  )
+
+}
+
+
+function ReportProblem({showMessage, service}){
+
+
+
+
+  if(showMessage){
+    return(
+      <div className="report-form ">
+        <form id="problem-form"  action="mailto:sammeyerson16@gmail.com?subject=Problem%20with%20service">
+          Describe the problem with the information for:
+          <br/>
+
+          <textarea readOnly form="problem-form" id="input-problem" value={service.name}
+        type="text" name="subject" className="service-name-in-form">
+          </textarea>
+
+          <textarea rows="7" form="problem-form" id="input-problem" placeholder="Describe the problem here"
+          className="problem-input" type="text" name="body">
+
+          </textarea>
+          <br/>
+          <input value="Send" type="submit" onClick={SendReportMessage}/>
+
+        </form>
+
+
+
+      </div>
+    )
+  }
+
+
+  return(
+    <div>
+
+
+    </div>
+
+  )
+}
 
 function FindAddress({service}){
 
@@ -58,7 +145,7 @@ function FindEmails({service}){
   if(numOfEmails===0){
     return(
       <div>
-        There are no emails listed for this service.
+        There are no emails listed.
       </div>
 
     )
@@ -77,9 +164,10 @@ function FindEmails({service}){
       <div>
         { emails.map((email, index)=>(
           <div key={index} >
-            {email}
+            <a className="clickable-link" href={"mailto:"+email}>{email}</a>
           </div>
         )) }
+
       </div>
     )
 
@@ -130,7 +218,7 @@ function FindWebsite({service}){
     return(
       <div>
         { websites.map((website, index)=>(
-          <div key={index}><a href={website} target="_blank" rel="noopener noreferrer">{website}</a></div>
+          <div key={index}><a className="clickable-link" href={website} target="_blank" rel="noopener noreferrer">{website}</a></div>
         )) }
       </div>
     )
@@ -144,7 +232,7 @@ function FindBusRoutes({service}){
   if(numOfBusRoutes===0){
     return(
       <div>
-        There are no bus routes listed for this service.
+        There are no bus routes listed.
       </div>
 
     )
@@ -179,7 +267,7 @@ function FindHours({service}){
   if(numOfDaysOpen===0){
     return(
       <div>
-        There are no hours listed for this service.
+        There are no hours listed.
       </div>
 
     )
@@ -235,13 +323,17 @@ function FindPhoneNumber({service}){
         { numbers.map((number, index)=>(
           <div key={index}>{number}</div>
         )) }
+        <div className="call-button">
+        </div>
       </div>
     )
   }
 
 }
 
-function FindService({data, name, loading_done}){
+function FindService({data, name, loading_done, showMessage}){
+
+
 
   if(!loading_done){
 		return(
@@ -269,43 +361,54 @@ function FindService({data, name, loading_done}){
 
   console.log('name: ',service.name)
   return(
-    <div className="text-center">
-      <h2 className="text-center">{service.name}</h2>
-      <li>Address:
-        <FindAddress
-          service={service}
-        />
-      </li>
-      <li>Phone Number:
+    <div className="text-center text">
+
+      <div className="service-title"><h2 className="text-center">{service.name}</h2></div>
+      <div className="service-info"><h3>Address:</h3><FindAddress
+        service={service}
+      />
+
+      </div>
+      <div className="service-info"><h3>Phone Number: </h3>
         <FindPhoneNumber
           service={service}
         />
-      </li>
-      <li>Hours:
+      </div>
+      <div className="service-info"><h3>Hours:</h3>
         <FindHours
           service={service}
         />
-      </li>
-      <li>Emails:
+      </div>
+      <div className="service-info"><h3>Emails:</h3>
         <FindEmails
           service={service}
         />
-      </li>
-      <li>Bus Routes:
+      </div>
+      <div className="service-info"><h3>Bus Routes:</h3>
         <FindBusRoutes
           service={service}
         />
-      </li>
-      <li>Websites:
+      </div>
+      <div className="service-info"><h3>Websites:</h3>
         <FindWebsite
           service={service}
         />
-      </li>
-      <li>Cost Info:
+      </div>
+      <div className="service-info"><h3>Cost Info:</h3>
         <FindCost
           service={service}
         />
-      </li>
+      </div>
+
+      <div className="service-info">
+        <h3>More Info:</h3> <DisplayOtherInfo
+          service={service}
+        />
+      </div>
+      <ReportProblem
+      showMessage={showMessage}
+      service={service}
+      />
     </div>
   )
 
@@ -317,26 +420,41 @@ class ServicePage extends React.Component{
 		super(props)
 		this.state = {
 			services: [],
-			loading_done: false
+			loading_done: false,
+      showMessage: false,
+      reportMessage: ''
 		}
 		GetAllServices()
 			.then((services) => this.data_load_complete(services))
 			.catch((e) => console.error(e))
 	}
+
 	data_load_complete(services){
 		this.setState({
 			services: services,
 			loading_done: true
 		})
 	}
+
+  showMessage = (bool) => {
+    this.setState({
+      showMessage: bool
+    });
+  }
     render(){
         return (
           <div className='container-fluid'>
-                <FindService
+              <FindService
                   data={this.state.services}
                   name={this.props.name}
                   loading_done={this.state.loading_done}
-                />
+                  showMessage={this.state.showMessage}
+              />
+              <br/>
+              <button className="report-problem-button" onClick={this.showMessage.bind(null, true)}>Report a problem with the information.</button>
+
+              <br/>
+
           </div>
         )
     }
