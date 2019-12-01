@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { GetAllCategories } from '../../util/Categories'
 import { CanUserDo } from '../../util/Auth'
 import CategoryEditPane from '../../components/SidePane/CategoryEditPane'
+import CategoryDeletePane from '../../components/SidePane/CategoryDeletePane'
 
 import './CategoryView.css';
 
@@ -15,8 +16,14 @@ function edit_category(cat, side_pane_open_callback){
 	)
 }
 
-function del_category(cat_id){
-	console.log(`Delete ${cat_id}`)
+function del_category(cat, side_pane_open_callback){
+	console.log(`Delete ${cat._id}`)
+	side_pane_open_callback(
+		<CategoryDeletePane 
+			category={cat}
+			delete_result_callback={() => {side_pane_open_callback(null)}}
+		/>
+	)
 }
 
 function ServiceButton({ text, img, data, link, edit_callback, del_callback, side_pane_open_callback, id }) {
@@ -27,7 +34,7 @@ function ServiceButton({ text, img, data, link, edit_callback, del_callback, sid
 	}
 	let del_btn = null
 	if(CanUserDo("delete", `/cat/${id}`) && del_callback){
-		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(data)} />
+		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(data, side_pane_open_callback)} />
 	}
 	const btn_deck = (edit_btn || del_btn) ? <p className="btn-deck">{edit_btn} {del_btn}</p> : null;
 	return (

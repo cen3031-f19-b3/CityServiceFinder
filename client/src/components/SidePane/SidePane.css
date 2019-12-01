@@ -73,6 +73,15 @@ div.side-pane div.button:hover{
     color: #fff;
 }
 
+div.side-pane div.danger-button{
+    color: #e52207;
+    border: 1px solid #e52207;
+}
+
+div.side-pane div.danger-button:hover{
+    background-color: #e52207;
+}
+
 div.side-pane div.button-disabled{
     background-color: #c2c2c2;
     color: #888;
@@ -106,4 +115,8 @@ div.side-pane p.err-toast{
     text-align: center;
     border: 2px solid #e52207;
     background-color: #f75740;
+}
+
+div.side-pane p.err-toast-big{
+    font-size: normal;
 }
