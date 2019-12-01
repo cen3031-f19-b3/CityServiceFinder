@@ -3,12 +3,12 @@ div.service-button-wrapper{
     display: block;
 }
 
-a.service-button{
+div.service-button{
     margin: auto;
     display: block;
 }
 
-a.service-button:hover{
+div.service-button:hover{
     text-decoration: none;
 }
 
@@ -24,16 +24,16 @@ div.service-button-main{
     transition-timing-function: linear;
 }
 
-a.service-button:hover div.service-button-main{
+div.service-button:hover div.service-button-main{
     border: 4px solid #1dc2ae;
 }
 
-a.service-button p{
+div.service-button p{
     color: #074b69;
     margin-bottom: 0.5em;
 }
 
-a.service-button:hover p{
+div.service-button:hover p{
     color: #074b69;
 }
 

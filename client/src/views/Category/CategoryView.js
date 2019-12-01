@@ -3,8 +3,28 @@ import { GetAllCategories } from '../../util/Categories'
 import { CanUserDo } from '../../util/Auth'
 import CategoryEditPane from '../../components/SidePane/CategoryEditPane'
 import CategoryDeletePane from '../../components/SidePane/CategoryDeletePane'
+import DrillDownPane from '../../components/SidePane/DrillDownPane'
 
 import './CategoryView.css';
+
+function is_parent(cat, all_cats){
+	return all_cats.filter((potential_child) => {
+		return potential_child.subcategory_of.includes(cat._id)
+	}).length !== 0
+}
+
+function open_category(cat, all_cats, side_pane_open_callback){
+	if(is_parent(cat, all_cats)){
+		side_pane_open_callback(
+			<DrillDownPane 
+				category={cat}
+				all_categories={all_cats}
+			/>
+		)
+	}else{
+		window.location.assign(`/cat/${cat._id}`)
+	}
+}
 
 function edit_category(cat, side_pane_open_callback){
 	console.log(`Edit ${cat._id}`)
@@ -26,25 +46,25 @@ function del_category(cat, side_pane_open_callback){
 	)
 }
 
-function ServiceButton({ text, img, data, link, edit_callback, del_callback, side_pane_open_callback, id }) {
+function ServiceButton({ text, img, data, this_category, callback, edit_callback, del_callback, side_pane_open_callback, id }) {
 	let img_txt = "fal fa-" + img + " fa-3x"
 	let edit_btn = null
 	if(CanUserDo("edit", `/cat/${id}`) && edit_callback){
-		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(data, side_pane_open_callback)} />
+		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(this_category, side_pane_open_callback)} />
 	}
 	let del_btn = null
 	if(CanUserDo("delete", `/cat/${id}`) && del_callback){
-		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(data, side_pane_open_callback)} />
+		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(this_category, side_pane_open_callback)} />
 	}
 	const btn_deck = (edit_btn || del_btn) ? <p className="btn-deck">{edit_btn} {del_btn}</p> : null;
 	return (
 		<div className="service-button-wrapper">
-			<a className="service-button" href={link} title={text}>
+			<div className="service-button" onClick={() => callback(this_category, data, side_pane_open_callback)} title={text}>
 				<div className="service-button-main">
 					<p><i className={img_txt} /></p>
 					<p>{text}</p>
 				</div>
-			</a>
+			</div>
 			{btn_deck}
 		</div>
 	)
@@ -83,8 +103,9 @@ function CategoryView({side_pane_open_callback}) {
 				<ServiceButton
 					text={category.name}
 					img={category.img}
-					data={category}
-					link={`./cat/${category._id}`}
+					data={data}
+					this_category={category}
+					callback={open_category}
 					edit_callback={edit_category}
 					del_callback={del_category}
 					key={category._id}
