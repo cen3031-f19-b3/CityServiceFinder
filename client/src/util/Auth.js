@@ -51,8 +51,8 @@ export const GetUser = () => {
  */
 export const GetUserRoles = () => {
     return [{
-        action: "create",
-        context: "/cat/5dc659bb61ba1a6fab712efd"
+        action: "administrator",
+        context: "/"
     }] // For testing purposes only
 }
 
