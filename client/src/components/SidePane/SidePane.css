@@ -23,6 +23,8 @@ div.side-pane-hidden {
 div.side-pane div.side-pane-content{
     position: fixed;
     width: calc(60% - 4em);
+    overflow: auto;
+    height: 90%;
 }
 
 div.side-pane i.panel-close{
