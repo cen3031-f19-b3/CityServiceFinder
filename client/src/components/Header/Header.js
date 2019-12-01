@@ -13,9 +13,9 @@ function Header() {
 				<table className="header-table">
 					<tbody>
 						<tr>
-							<td><a className="header-button" id="logo-link" href="/"> <i className="fal fa-home fa-2x" /></a></td>
+							<td><a className="header-button" id="logo-link" href="/" title="Return to home page"> <i className="fal fa-home fa-2x" /></a></td>
 							<td>GNV Resource Directory</td>
-							<td><div className="header-button" onClick={() => set_display_login(true)}><i className="fal fa-user fa-2x" /></div></td>
+							<td><div className="header-button" onClick={() => set_display_login(true)} title="Administrator login"><i className="fal fa-user fa-2x" /></div></td>
 						</tr>
 					</tbody>
 				</table>
