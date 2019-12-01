@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { GetMyEditableUsers } from '../../util/Users'
 import { CanUserDo, IsUserAdmin } from '../../util/Auth'
 
-import LoginPane from '../../components/SidePane/LoginPane'
 import SearchableList from '../../components/SearchableList/SearchableList'
 
 import './UserListView.css'
@@ -12,17 +11,7 @@ function UserListView({logged_in_user, side_pane_open_callback}){
 	const [users, set_users] = useState(null)
 	const [load_done, set_load_done] = useState(false)
 
-	let login_prompted = false
-
 	if(!logged_in_user){
-		/*if(!login_prompted){
-			side_pane_open_callback(<LoginPane 
-				login_success_callback={() => {
-					window.location.reload(true)
-				}}
-			/>)
-			login_prompted = true
-		}*/
 
 		return (<div className="user-list-view">
 			<h1>Login Required</h1>
