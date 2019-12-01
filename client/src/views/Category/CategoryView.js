@@ -4,23 +4,36 @@ import { CanUserDo } from '../../util/Auth'
 
 import './CategoryView.css';
 
-function ServiceButton({ text, img, link, edit_link, id }) {
-	var img_txt = "fal fa-" + img + " fa-3x"
-	var edit_btn = null
-	console.log("Checking user permissions.")
-	if(CanUserDo("edit", `/cat/${id}`) && edit_link){
-		console.log("Enabling edit button.")
-		edit_btn = <div className="service-button-edit" href={edit_link}><i className={"fal fa-wrench"} title={`Edit ${text}`} /></div>
+function edit_category(cat_id){
+	console.log(`Edit ${cat_id}`)
+}
+
+function del_category(cat_id){
+	console.log(`Delete ${cat_id}`)
+}
+
+function ServiceButton({ text, img, link, edit_callback, del_callback, id }) {
+	let img_txt = "fal fa-" + img + " fa-3x"
+	let edit_btn = null
+	if(CanUserDo("edit", `/cat/${id}`) && edit_callback){
+		//edit_btn = <div className="service-button-edit" onClick={() => edit_callback(id)}><i className={"fal fa-wrench"} title={`Edit ${text}`} /></div>
+		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(id)} />
 	}
+	let del_btn = null
+	if(CanUserDo("delete", `/cat/${id}`) && del_callback){
+		//del_btn = <div className="service-button-delete" onClick={() => del_callback(id)}><i className={"fal fa-minus-circle"} title={`Delete ${text}`} /></div>
+		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(id)} />
+	}
+	const btn_deck = (edit_btn || del_btn) ? <p className="btn-deck">{edit_btn} {del_btn}</p> : null;
 	return (
 		<div className="service-button-wrapper">
-			{edit_btn}
 			<a className="service-button" href={link} title={text}>
 				<div className="service-button-main">
 					<p><i className={img_txt} /></p>
 					<p>{text}</p>
 				</div>
 			</a>
+			{btn_deck}
 		</div>
 	)
 }
@@ -59,7 +72,8 @@ function CategoryView() {
 					text={category.name}
 					img={category.img}
 					link={`./cat/${category._id}`}
-					edit_link={`./cat/${category._id}/edit`}
+					edit_callback={edit_category}
+					del_callback={del_category}
 					key={category._id}
 					id={category._id}
 				/>
@@ -74,7 +88,8 @@ function CategoryView() {
 				text={"Create"}
 				img={"plus-circle"}
 				link={"./cat/new"}
-				edit_link={null}
+				edit_callback={null}
+				del_callback={null}
 			/>
 	}
 
