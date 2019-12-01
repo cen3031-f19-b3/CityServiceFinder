@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GetAllCategories } from '../../util/Categories'
 import { CanUserDo } from '../../util/Auth'
+import CategoryCreatePane from '../../components/SidePane/CategoryCreatePane'
 import CategoryEditPane from '../../components/SidePane/CategoryEditPane'
 import CategoryDeletePane from '../../components/SidePane/CategoryDeletePane'
 import DrillDownPane from '../../components/SidePane/DrillDownPane'
@@ -19,11 +20,21 @@ function open_category(cat, all_cats, side_pane_open_callback){
 			<DrillDownPane 
 				category={cat}
 				all_categories={all_cats}
+				side_pane_open_callback={side_pane_open_callback}
 			/>
 		)
 	}else{
 		window.location.assign(`/cat/${cat._id}`)
 	}
+}
+
+function create_category(cat, all_cats, side_pane_open_callback){
+	console.log(`Create new category`)
+	side_pane_open_callback(
+		<CategoryCreatePane
+			commit_callback={() => {side_pane_open_callback(null)}}
+		/>
+	)
 }
 
 function edit_category(cat, side_pane_open_callback){
@@ -122,9 +133,10 @@ function CategoryView({side_pane_open_callback}) {
 			<ServiceButton
 				text={"Create"}
 				img={"plus-circle"}
-				link={"./cat/new"}
+				callback={create_category}
 				edit_callback={null}
 				del_callback={null}
+				side_pane_open_callback={side_pane_open_callback}
 			/>
 	}
 

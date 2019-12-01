@@ -122,3 +122,39 @@ div.side-pane p.err-toast{
 div.side-pane p.err-toast-big{
     font-size: normal;
 }
+
+div.side-pane ul{
+    padding-left: 0;
+}
+
+div.side-pane li{
+    background-color: #c8d8de;
+    color: black;
+    list-style: none;
+    padding: 0em 1em;
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+div.side-pane a:nth-child(even) li{
+    background-color: #9bcbde;
+    border-top: 1px solid #074b69;
+    border-bottom: 1px solid #074b69;
+}
+
+div.side-pane a li:hover{
+    background-color: #59b9de;
+}
+
+div.side-pane li:hover{
+    background-color: #59b9de;
+}
+
+div.side-pane a li{
+    color: black;
+}
+
+div.side-pane a:hover{
+    text-decoration: none;
+}

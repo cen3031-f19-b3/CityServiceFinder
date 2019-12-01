@@ -6,6 +6,7 @@ div.service-button-wrapper{
 div.service-button{
     margin: auto;
     display: block;
+    cursor: pointer;
 }
 
 div.service-button:hover{
