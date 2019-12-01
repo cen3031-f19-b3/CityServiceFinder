@@ -8,6 +8,9 @@ import ServicePage from "./components/servicePage"
 
 import SidePane from "./components/SidePane/SidePane"
 import LoginPane from "./components/SidePane/LoginPane"
+import UserPane from "./components/SidePane/UserPane"
+
+import { GetUser } from "./util/Auth"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
@@ -20,6 +23,15 @@ const App = () => {
   const login_pane = <LoginPane
     login_success_callback={() => {
       set_side_pane_contents(null)
+      set_current_user(GetUser())
+    }}
+  />
+
+  const user_pane = <UserPane
+    user={current_user}
+    logout_success_callback={() => {
+      set_side_pane_contents(null)
+      set_current_user(null)
     }}
   />
 
@@ -28,7 +40,13 @@ const App = () => {
 
       {/* Header to be shown at the top of each page. */}
       <Header
-        login_clicked_callback={() => set_side_pane_contents(login_pane)}
+        login_clicked_callback={() => {
+          if(current_user){
+            set_side_pane_contents(user_pane)
+          }else{
+            set_side_pane_contents(login_pane)
+          }
+        }}
       />
 
       {/* Side pane is sometimes used to show additional options/content */}

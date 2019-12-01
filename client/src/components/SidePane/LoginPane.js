@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import {Login} from '../../util/Auth';
-import './LoginPane.css';
 
 async function do_login(
         uname, password,
@@ -35,7 +34,7 @@ async function do_login(
 function PwdToast({show_me}){
     if(show_me){
         return(
-            <p className="pwd-toast">Login incorrect! Please try again.</p>
+            <p className="err-toast">Login incorrect! Please try again.</p>
         )
     }else{
         return(<p></p>)
@@ -53,9 +52,9 @@ function LoginPane({login_success_callback}){
     const [pwd_inc, set_pwd_inc] = useState(false)
     const [login_in_progress, set_login_in_progress] = useState(false)
 
-    var login_btn_class = "login-button"
+    var login_btn_class = "button"
     if(login_in_progress){
-        login_btn_class = login_btn_class + " login-button-disabled"
+        login_btn_class = login_btn_class + " button-disabled"
     }
 
     return(

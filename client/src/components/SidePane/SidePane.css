@@ -32,3 +32,62 @@ div.side-pane i.panel-close{
     width: min-content;
     cursor: pointer;
 }
+
+
+div.side-pane h1{
+    border-bottom: 3px solid #074b69;
+}
+
+div.side-pane div.button {
+    width: max-content;
+    padding: 0.5em;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    color: #074b69;
+    background-color: #fff;
+    border: 1px solid #074b69;
+    border-radius: 3px;
+
+    transition: background-color 0.5s, color 0.5s;
+}
+
+div.side-pane div.button:hover{
+    background-color: #074b69;
+    color: #fff;
+}
+
+div.side-pane div.button-disabled{
+    background-color: #c2c2c2;
+    color: #888;
+    border: 1px solid #888;
+    cursor: not-allowed;
+}
+
+div.side-pane div.button-disabled:hover{
+    background-color: #c2c2c2;
+    color: #888;
+}
+
+div.side-pane input{
+    width: 80%;
+    margin: 1em auto;
+    padding: 0.5em;
+    border: 2px solid #c2c2c2;
+    border-radius: 5px;
+    display: block;
+    
+    transition: border 0.5s;
+}
+
+div.side-pane input:focus{
+    border: 2px solid #1dc2ae;
+}
+
+div.side-pane p.err-toast{
+    padding: 0.3em;
+    font-size: small;
+    text-align: center;
+    border: 2px solid #e52207;
+    background-color: #f75740;
+}

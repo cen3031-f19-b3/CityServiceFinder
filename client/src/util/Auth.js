@@ -20,7 +20,22 @@ export const Login = (user, pass) => {
     )
         .then((data) => data.json())
         .catch((e) => console.error(e))
-};
+}
+
+export const Logout = () => {
+    return true
+}
+
+export const GetUser = () => {
+    return {
+        email: "joe@joe.biz",
+        name: "Joe",
+        roles: [{
+            action: "administrator",
+            context: "/"
+        }]
+    }
+}
 
 /* Returns a list of all roles for the current user. Roles are given as an array
  * of dicts, formatted as
