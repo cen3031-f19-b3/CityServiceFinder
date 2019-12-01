@@ -73,9 +73,18 @@ const App = () => {
         </Route>
 
         {/* Individual category links go to a MapPage */}
-				<Route path="/cat/:category" render={(props) => {
+				<Route exact path="/cat/:category" render={(props) => {
           return <MapPage 
             cat={props.match.params.category}
+            user={current_user}
+            {...props}
+          />
+        }} />
+
+        {/* Subcategory links also go to a MapPage */}
+        <Route exact path="/cat/:category/:subcategory" render={(props) => {
+          return <MapPage
+            cat={props.match.params.subcategory}
             user={current_user}
             {...props}
           />
