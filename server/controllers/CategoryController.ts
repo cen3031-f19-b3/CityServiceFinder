@@ -12,6 +12,12 @@ export const GetAllCategories = async (req: Request, res: Response) => {
   res.send(categories);
 };
 
+export const GetSingleCategory = async (req: Request, res: Response) => {
+  const category = await CategoryModel.findOne({_id: req.params.catid})
+    .populate('subcategory_of');
+  res.send(category);
+}
+
 export const DeleteCategory = async (req: Request, res: Response) => {
   CategoryModel.findOneAndRemove({_id: req.params.catid}, (err) => {
     if (err) {

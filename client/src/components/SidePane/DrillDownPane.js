@@ -8,7 +8,7 @@ function SubcatItem({parent, subcategory}){
     return(<a href={`/cat/${parent._id}/${subcategory._id}`}><li>{subcategory.name}</li></a>)
 }
 
-function DrillDownPane({category, all_categories, side_pane_open_callback}){
+function DrillDownPane({category, all_categories, side_pane_open_callback, refresh_callback}){
     
     const subcat_items = all_categories.filter((potential_subcategory) => {
         return potential_subcategory.subcategory_of.includes(category._id)
@@ -30,6 +30,7 @@ function DrillDownPane({category, all_categories, side_pane_open_callback}){
             side_pane_open_callback(<CategoryCreatePane 
                 commit_callback={() => {
                     side_pane_open_callback(null)
+                    refresh_callback()
                 }}
                 all_categories={all_categories}
                 required_parent={required_parent}

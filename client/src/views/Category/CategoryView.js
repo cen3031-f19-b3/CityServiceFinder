@@ -14,13 +14,14 @@ function is_parent(cat, all_cats){
 	}).length !== 0
 }
 
-function open_category(cat, all_cats, side_pane_open_callback){
+function open_category(cat, all_cats, side_pane_open_callback, refresh_callback){
 	if(is_parent(cat, all_cats)){
 		side_pane_open_callback(
 			<DrillDownPane 
 				category={cat}
 				all_categories={all_cats}
 				side_pane_open_callback={side_pane_open_callback}
+				refresh_callback={refresh_callback}
 			/>
 		)
 	}else{
@@ -28,51 +29,57 @@ function open_category(cat, all_cats, side_pane_open_callback){
 	}
 }
 
-function create_category(cat, all_cats, side_pane_open_callback){
-	console.log(`Create new category`)
+function create_category(cat, all_cats, side_pane_open_callback, refresh_callback){
 	side_pane_open_callback(
 		<CategoryCreatePane
-			commit_callback={() => {side_pane_open_callback(null)}}
+			commit_callback={() => {
+				side_pane_open_callback(null)
+				refresh_callback()
+			}}
 			all_categories={all_cats}
 		/>
 	)
 }
 
-function edit_category(cat, all_cats, side_pane_open_callback){
-	console.log(`Edit ${cat._id}`)
+function edit_category(cat, all_cats, side_pane_open_callback, refresh_callback){
 	side_pane_open_callback(
 		<CategoryEditPane 
 			category={cat}
 			all_categories={all_cats}
-			commit_callback={() => {side_pane_open_callback(null)}}
+			commit_callback={() => {
+				side_pane_open_callback(null)
+				refresh_callback()
+			}}
 		/>
 	)
 }
 
-function del_category(cat, side_pane_open_callback){
-	console.log(`Delete ${cat._id}`)
+function del_category(cat, side_pane_open_callback, refresh_callback){
 	side_pane_open_callback(
 		<CategoryDeletePane 
 			category={cat}
-			delete_result_callback={() => {side_pane_open_callback(null)}}
+			delete_result_callback={() => {
+				side_pane_open_callback(null)
+				refresh_callback()
+			}}
 		/>
 	)
 }
 
-function ServiceButton({ text, img, data, this_category, callback, edit_callback, del_callback, side_pane_open_callback, id }) {
+function ServiceButton({ text, img, data, this_category, callback, edit_callback, del_callback, side_pane_open_callback, refresh_callback, id }) {
 	let img_txt = "fal fa-" + img + " fa-3x"
 	let edit_btn = null
 	if(CanUserDo("edit", `/cat/${id}`) && edit_callback){
-		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(this_category, data, side_pane_open_callback)} />
+		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(this_category, data, side_pane_open_callback, refresh_callback)} />
 	}
 	let del_btn = null
 	if(CanUserDo("delete", `/cat/${id}`) && del_callback){
-		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(this_category, side_pane_open_callback)} />
+		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(this_category, side_pane_open_callback, refresh_callback)} />
 	}
 	const btn_deck = (edit_btn || del_btn) ? <p className="btn-deck">{edit_btn} {del_btn}</p> : null;
 	return (
 		<div className="service-button-wrapper">
-			<div className="service-button" onClick={() => callback(this_category, data, side_pane_open_callback)} title={text}>
+			<div className="service-button" onClick={() => callback(this_category, data, side_pane_open_callback, refresh_callback)} title={text}>
 				<div className="service-button-main">
 					<p><i className={img_txt} /></p>
 					<p>{text}</p>
@@ -123,6 +130,7 @@ function CategoryView({side_pane_open_callback}) {
 					del_callback={del_category}
 					key={category._id}
 					side_pane_open_callback={side_pane_open_callback}
+					refresh_callback={() => set_load_done(false)}
 					id={category._id}
 				/>
 			)
@@ -140,6 +148,7 @@ function CategoryView({side_pane_open_callback}) {
 				edit_callback={null}
 				del_callback={null}
 				side_pane_open_callback={side_pane_open_callback}
+				refresh_callback={() => set_load_done(false)}
 			/>
 	}
 
