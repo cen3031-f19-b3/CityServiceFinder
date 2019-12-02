@@ -8,7 +8,8 @@ import { CategoryModel } from '../models/CategorySchema';
  * @param res {Response} the response to the request
  */
 export const GetAllCategories = async (req: Request, res: Response) => {
-  const categories = await CategoryModel.find();
+  const categories = await CategoryModel.find()
+    .populate('subcategory_of');
   res.send(categories);
 };
 

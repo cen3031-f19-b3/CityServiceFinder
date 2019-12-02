@@ -49,8 +49,14 @@ function SubcatItem({parent, subcategory, all_cats, enable_edit, enable_delete, 
 
 function DrillDownPane({category, all_categories, side_pane_open_callback, refresh_callback}){
 	
-	const subcat_items = all_categories.filter((potential_subcategory) => {
-		return potential_subcategory.subcategory_of.includes(category._id)
+	const subcat_items = all_categories.filter((potential_child) => {
+		let is_our_child = false
+		potential_child.subcategory_of.forEach((pc_sc) => {
+			if(pc_sc._id === category._id){
+				is_our_child = true
+			}
+		})
+		return is_our_child
 	}).map((subcat) => {
 		return (
 			<SubcatItem 

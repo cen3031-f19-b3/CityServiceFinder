@@ -10,7 +10,13 @@ import './CategoryView.css';
 
 function is_parent(cat, all_cats){
 	return all_cats.filter((potential_child) => {
-		return potential_child.subcategory_of.includes(cat._id)
+		let is_our_child = false
+		potential_child.subcategory_of.forEach((pc_sc) => {
+			if(pc_sc._id === cat._id){
+				is_our_child = true
+			}
+		})
+		return is_our_child
 	}).length !== 0
 }
 
