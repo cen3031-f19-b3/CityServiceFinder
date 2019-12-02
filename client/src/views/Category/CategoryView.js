@@ -33,6 +33,7 @@ function create_category(cat, all_cats, side_pane_open_callback){
 	side_pane_open_callback(
 		<CategoryCreatePane
 			commit_callback={() => {side_pane_open_callback(null)}}
+			all_categories={all_cats}
 		/>
 	)
 }
@@ -134,6 +135,7 @@ function CategoryView({side_pane_open_callback}) {
 			<ServiceButton
 				text={"Create"}
 				img={"plus-circle"}
+				data={data}
 				callback={create_category}
 				edit_callback={null}
 				del_callback={null}

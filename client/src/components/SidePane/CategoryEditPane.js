@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import SearchableList from '../SearchableList/SearchableList'
 
-import './CategoryEditPane.css'
+import './CategoryButton.css'
 
 async function commit_changes(new_category, in_progress_set, commit_callback){
 	in_progress_set(true)
