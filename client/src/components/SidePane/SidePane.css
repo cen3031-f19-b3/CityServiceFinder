@@ -137,22 +137,14 @@ div.side-pane li{
     transition: background-color 0.2s;
 }
 
-div.side-pane a:nth-child(even) li{
+div.side-pane li:nth-child(even){
     background-color: #9bcbde;
     border-top: 1px solid #074b69;
     border-bottom: 1px solid #074b69;
 }
 
-div.side-pane a li:hover{
-    background-color: #59b9de;
-}
-
 div.side-pane li:hover{
     background-color: #59b9de;
-}
-
-div.side-pane a li{
-    color: black;
 }
 
 div.side-pane a:hover{
