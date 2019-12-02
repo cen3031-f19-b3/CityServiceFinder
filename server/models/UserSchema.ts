@@ -10,6 +10,16 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
+    authorizations: [{
+        action: {
+            type: String,
+            required: true,
+        },
+        context: {
+            type: String,
+            required: true,
+        },
+    }],
 });
 
 userSchema.plugin(passportLocalMongoose.default, {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import passport from 'passport';
+import passport from '../config/passport';
 import { UserModel } from '../models/UserSchema';
 
 export const RegisterUser = (req: Request, res: Response) => {
@@ -27,6 +27,18 @@ export const RegisterUser = (req: Request, res: Response) => {
             });
           }
 
+          req.login(user, (err) => {
+            if (err) {
+              return res.status(500).json({
+                success: false
+              });
+            } else {
+              return res.json({
+                success: true
+              });
+            }
+          });
+
           return res.json({
             success: true
           });
@@ -36,7 +48,7 @@ export const RegisterUser = (req: Request, res: Response) => {
   );
 };
 
-export const LoginUser = (req: Request, res: Response) => {
+export const LoginUser = (req: Request, res: Response, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       console.log(`Error authenticating user: ${err}`);
@@ -55,4 +67,11 @@ export const LoginUser = (req: Request, res: Response) => {
       success: true
     });
   })(req, res);
+};
+
+export const GetUsers = (req: Request, res: Response) => {
+  console.dir(req.isAuthenticated());
+  console.dir(req.user);
+  console.log(req.cookies)
+  return res.sendStatus(200);
 };
