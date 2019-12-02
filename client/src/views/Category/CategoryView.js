@@ -37,11 +37,12 @@ function create_category(cat, all_cats, side_pane_open_callback){
 	)
 }
 
-function edit_category(cat, side_pane_open_callback){
+function edit_category(cat, all_cats, side_pane_open_callback){
 	console.log(`Edit ${cat._id}`)
 	side_pane_open_callback(
 		<CategoryEditPane 
 			category={cat}
+			all_categories={all_cats}
 			commit_callback={() => {side_pane_open_callback(null)}}
 		/>
 	)
@@ -61,7 +62,7 @@ function ServiceButton({ text, img, data, this_category, callback, edit_callback
 	let img_txt = "fal fa-" + img + " fa-3x"
 	let edit_btn = null
 	if(CanUserDo("edit", `/cat/${id}`) && edit_callback){
-		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(this_category, side_pane_open_callback)} />
+		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(this_category, data, side_pane_open_callback)} />
 	}
 	let del_btn = null
 	if(CanUserDo("delete", `/cat/${id}`) && del_callback){

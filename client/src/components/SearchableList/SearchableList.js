@@ -9,12 +9,13 @@ function SearchableListItem({object, click_callback, selected}){
 	>{object.contents}</li>
 }
 
-function SearchableList({objects, click_callback, selectable, multi_select}){
-	const [selected, set_selected] = useState([])
+function SearchableList({objects, click_callback, selectable, multi_select, initial_selected}){
+	if(!initial_selected){initial_selected = []}
+	const [selected, set_selected] = useState(initial_selected)
 	const [filter_ref, set_filter_ref] = useState(null)
 	const [filter, set_filter] = useState("")
 	const toggle_selected = (object) => {
-		if(!selectable){
+		if(selectable){
 			 if(!multi_select){
 				set_selected(object)
 			}else if(selected.includes(object)){
@@ -30,7 +31,7 @@ function SearchableList({objects, click_callback, selectable, multi_select}){
 	let item_counter = 0;
 
 	const list_items = objects.filter((obj) => {
-		return obj && obj.search_on && obj.search_on.toLowerCase().includes(filter)
+		return obj && (!obj.search_on || obj.search_on.toLowerCase().includes(filter))
 	}).map((obj) => {
 		item_counter += 1
 		return <SearchableListItem
