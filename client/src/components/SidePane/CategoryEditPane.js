@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+
+import { UpdateCategory } from '../../util/Categories'
 
 import SearchableList from '../SearchableList/SearchableList'
 
@@ -6,7 +8,9 @@ import './CategoryButton.css'
 
 async function commit_changes(new_category, in_progress_set, commit_callback){
 	in_progress_set(true)
-	console.log(`Commit changes to ${new_category.name}`)
+
+	await UpdateCategory(new_category)
+	
 	in_progress_set(false)
 
 	commit_callback()
@@ -97,7 +101,7 @@ function CategoryEditPane({category, all_categories, commit_callback}) {
 				/>
 			</div>
 			<div className={btn_class} onClick={() => commit_changes(
-				{name: cat_name.value, img: cat_img.value, subcategory_of: cat_parents},
+				{_id: category._id, name: cat_name.value, img: cat_img.value, subcategory_of: cat_parents},
 				set_commit_in_progress,
 				commit_callback
 			)}><i className="fal fa-upload" /> Commit Changes</div>

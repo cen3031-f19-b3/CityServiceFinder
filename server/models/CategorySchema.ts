@@ -13,11 +13,11 @@ const categorySchema = new Schema({
     type: [ObjectId]
   },
   link: {
-    required: true,
+    required: false,
     type: String
   },
   img: {
-    required: true,
+    required: false,
     type: String
   }
 });

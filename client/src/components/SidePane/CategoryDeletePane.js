@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
+import { DeleteCategory } from '../../util/Categories'
+
 async function confirm_delete(to_delete, in_progress_set, delete_result_callback, disabled){
     if(disabled){return}
     in_progress_set(true)
-    console.log(`Deleting category ${to_delete.name}`)
+    DeleteCategory(to_delete._id)
     in_progress_set(false)
 
     delete_result_callback()

@@ -13,7 +13,7 @@ export const GetAllCategories = async (req: Request, res: Response) => {
 };
 
 export const DeleteCategory = async (req: Request, res: Response) => {
-  CategoryModel.deleteOne(req.body.id, (err) => {
+  CategoryModel.findOneAndRemove({_id: req.params.catid}, (err) => {
     if (err) {
       return res.sendStatus(400);
     }
@@ -41,8 +41,8 @@ export const CreateCategory = async (req: Request, res: Response) => {
 
 export const UpdateCategory = async (req: Request, res: Response) => {
   CategoryModel.findByIdAndUpdate(
-    req.body.id,
-    { ...req.body.update },
+    req.params.catid,
+    { ...req.body },
     (err, cat) => {
       if (err) {
         return res.status(400).json(err);

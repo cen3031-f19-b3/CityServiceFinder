@@ -31,6 +31,7 @@ function DrillDownPane({category, all_categories, side_pane_open_callback}){
                 commit_callback={() => {
                     side_pane_open_callback(null)
                 }}
+                all_categories={all_categories}
                 required_parent={required_parent}
             />)
         }}>

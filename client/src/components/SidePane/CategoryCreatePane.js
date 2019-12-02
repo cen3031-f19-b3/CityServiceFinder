@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
+import { CreateCategory } from '../../util/Categories'
+
 import SearchableList from '../SearchableList/SearchableList'
 
 import './CategoryButton.css'
 
 async function commit_changes(new_category, in_progress_set, commit_callback){
     in_progress_set(true)
-    console.log(`Creating ${new_category.name}`)
+    await CreateCategory(new_category)
     in_progress_set(false)
 
     commit_callback()
@@ -44,7 +46,7 @@ function CategoryCreatePane({commit_callback, all_categories, required_parent}) 
     const [commit_in_progress, set_commit_in_progress] = useState(false)
     const [cat_name, set_cn] = useState("")
     const [cat_img, set_img] = useState("")
-	const [cat_parents, set_cat_parents] = useState([])
+    const [cat_parents, set_cat_parents] = useState(required_parent ? [required_parent] : [])
 
     let btn_class = "button"
     if(commit_in_progress) {btn_class += " button-disabled"}
@@ -99,7 +101,7 @@ function CategoryCreatePane({commit_callback, all_categories, required_parent}) 
 				/>
 			</div>
             <div className={btn_class} onClick={() => commit_changes(
-                {name: cat_name.value, img: cat_img.value},
+                {name: cat_name.value, img: cat_img.value, subcategory_of: cat_parents},
                 set_commit_in_progress,
                 commit_callback
             )}><i className="fal fa-plus-circle" /> Create</div>
