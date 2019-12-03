@@ -86,7 +86,7 @@ function CategoryEditPane({category, all_categories, commit_callback}) {
 			<div className="cat-button-deck d-flex flex-wrap">
 				{cat_buttons}
 			</div>
-			<div style={{height: "15em", "margin-bottom": "0.5em"}}>
+			<div style={{height: "15em", "marginBottom": "0.5em"}}>
 				<SearchableList 
 					objects={list_items}
 					click_callback={(obj) => {

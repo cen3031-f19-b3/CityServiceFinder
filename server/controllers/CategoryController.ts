@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CategoryModel } from '../models/CategorySchema';
 import { ServiceModel } from '../models/ServiceSchema';
+import { SendReportMessage } from '../util/mail';
 
 /**
  * A Route to retrieve all categories from the database.
@@ -23,7 +24,7 @@ export const GetSingleCategory = async (req: Request, res: Response) => {
 export const GetCategoryServices = async (req: Request, res: Response) => {
   const services = await ServiceModel.find({categories: req.params.catid});
   res.send(services);
-}
+};
 
 export const DeleteCategory = async (req: Request, res: Response) => {
   CategoryModel.findOneAndRemove({_id: req.params.catid}, (err) => {
@@ -64,4 +65,19 @@ export const UpdateCategory = async (req: Request, res: Response) => {
       return res.json(cat);
     }
   );
+};
+
+export const ReportCategory = async (req: Request, res: Response) => {
+  const category = await CategoryModel.findById(req.params.catid);
+
+  SendReportMessage(`A user has reported the category with title: ${category.name}.\n
+  Category ID: ${category.id}\n\n
+  User Message: ${req.body.message}
+  `).then(() => {
+    return res.sendStatus(200);
+  }, () => {
+    return res.sendStatus(500);
+  }).catch(() => {
+    return res.sendStatus(500);
+  });
 };

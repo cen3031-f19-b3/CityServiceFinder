@@ -7,6 +7,7 @@ export interface IAuthorization extends Types.Subdocument {
 
 export interface IUser extends Document {
     email: string;
+    name: string;
     password: string;
     authorizations: IAuthorization[];
 }

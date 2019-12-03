@@ -4,8 +4,6 @@ import CategoryCreatePane from './CategoryCreatePane'
 import CategoryEditPane from './CategoryEditPane'
 import CategoryDeletePane from './CategoryDeletePane'
 
-import { CanUserDo } from '../../util/Auth'
-
 function SubcatItem({parent, subcategory, all_cats, enable_edit, enable_delete, side_pane_open_callback, refresh_callback}){
 	const edit_btn = enable_edit
 		? <i className={"service-button-edit fal fa-wrench"} title={`Edit ${subcategory.name}`} onClick={() => {
@@ -47,7 +45,7 @@ function SubcatItem({parent, subcategory, all_cats, enable_edit, enable_delete, 
 	}
 }
 
-function DrillDownPane({category, all_categories, side_pane_open_callback, refresh_callback}){
+function DrillDownPane({category, all_categories, side_pane_open_callback, refresh_callback, check_auth}){
 	
 	const subcat_items = all_categories.filter((potential_child) => {
 		let is_our_child = false
@@ -64,8 +62,8 @@ function DrillDownPane({category, all_categories, side_pane_open_callback, refre
 				parent={category}
 				subcategory={subcat}
 				all_cats={all_categories}
-				enable_edit={CanUserDo("edit", `/cat/${category._id}/${subcat._id}`)}
-				enable_delete={CanUserDo("delete", `/cat/${category._id}/${subcat._id}`)}
+				enable_edit={check_auth("edit", `/cat/${category._id}/${subcat._id}`)}
+				enable_delete={check_auth("delete", `/cat/${category._id}/${subcat._id}`)}
 				side_pane_open_callback={side_pane_open_callback}
 				refresh_callback={refresh_callback}
 			/>
@@ -74,8 +72,8 @@ function DrillDownPane({category, all_categories, side_pane_open_callback, refre
 
 	let create_button = null
 
-	if(CanUserDo("create", `/cat/${category._id}`)){
-		let required_parent = (CanUserDo("create", "/cat")) ? null : category._id
+	if(check_auth("create", `/cat/${category._id}`)){
+		let required_parent = (check_auth("create", "/cat")) ? null : category._id
 		create_button = <li onClick={() => {
 			side_pane_open_callback(<CategoryCreatePane 
 				commit_callback={() => {
