@@ -29,3 +29,35 @@ export const ReportService = (service_id, message) => {
         .then((data) => data.json())
         .catch((e) => console.error(e));
 };
+
+export const CreateService = (service) => {
+    return fetch(`${GetBackendDomain()}/api/services/new`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(service)
+    })
+}
+
+export const UpdateService = (service) => {
+    return fetch(`${GetBackendDomain()}/api/services/${service._id}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: service._id,
+            update: service
+        })
+    })
+}
+
+export const DeleteService = (service) => {
+    return fetch(`${GetBackendDomain()}/api/services/${service._id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+}

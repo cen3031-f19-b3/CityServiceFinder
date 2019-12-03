@@ -2,18 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { GetService, ReportService } from "../../util/Services";
 
 import './ServicePage.css';
+import { GetAllCategories } from '../../util/Categories';
+import ManageServicePane from '../../components/SidePane/ManageServicePane'
 
-export default ({ service_id }) => {
+export default ({ service_id, check_auth, side_pane_open_callback }) => {
     const [service, setService] = useState({});
     const [loading, setLoading] = useState(true);
     const [reportMsg, setReportMsg] = useState('');
     const [showReport, setShowReport] = useState(false);
+
+    const [allCats, setAllCats] = useState(null);
 
 
     useEffect(() => {
         GetService(service_id).then((data) => {
             setService(data);
             setLoading(false);
+        });
+
+        GetAllCategories().then((data) => {
+            setAllCats(data);
         });
     }, [service_id]);
 
@@ -31,8 +39,24 @@ export default ({ service_id }) => {
         )
     }
 
+    const edit_button = service && check_auth("edit", `/services/${service_id}`)
+        ? <div style={{
+            float: "right",
+            margin: "1em",
+            cursor: "pointer"
+        }} onClick={() => {
+            side_pane_open_callback(<ManageServicePane 
+                commit_callback={() => side_pane_open_callback(null)}
+                this_service={service}
+                check_auth={check_auth}
+                all_categories={allCats}
+            />)
+        }}><i className="fal fa-wrench fa-5x" /></div>
+        : null
+
     return (
         <div className="container-fluid">
+            {edit_button}
             <div className="text-center text">
                 <div className="service-title">
                     <h2 className="text-center">{service.name}</h2>

@@ -13,7 +13,7 @@ export const GetSingleService = async (req: Request, res: Response) => {
 };
 
 export const DeleteService = async (req: Request, res: Response) => {
-  ServiceModel.deleteOne(req.body.id, (err) => {
+  ServiceModel.findByIdAndDelete(req.body.id, (err) => {
     if (err) {
       return res.sendStatus(400);
     }
@@ -45,6 +45,7 @@ export const UpdateService = async (req: Request, res: Response) => {
     { ...req.body.update },
     (err, serv) => {
       if (err) {
+        console.error(err)
         return res.status(400).json(err);
       }
 

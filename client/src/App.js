@@ -95,6 +95,7 @@ const App = () => {
             cat_id={props.match.params.category}
             user={current_user}
             check_auth={check_auth}
+            side_pane_open_callback={set_side_pane_contents}
             {...props}
           />
         }} />
@@ -106,6 +107,7 @@ const App = () => {
             parent_id={props.match.params.category}
             user={current_user}
             check_auth={check_auth}
+            side_pane_open_callback={set_side_pane_contents}
             {...props}
           />
         }} />
@@ -116,6 +118,7 @@ const App = () => {
             service_id={props.match.params.service_id}
             user={current_user}
             check_auth={check_auth}
+            side_pane_open_callback={set_side_pane_contents}
             {...props}
           />
         }} />

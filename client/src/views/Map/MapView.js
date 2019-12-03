@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { GetCategoryServices } from '../../util/Services'
-import { GetSingleCategory } from '../../util/Categories'
+import { GetSingleCategory, GetAllCategories } from '../../util/Categories'
 import SearchableList from '../../components/SearchableList/SearchableList'
+import ManageServicePane from '../../components/SidePane/ManageServicePane'
 
 import './MapView.css'
 
@@ -14,9 +15,14 @@ const grab_one_category = async (cat_id) => {
 	return await GetSingleCategory(cat_id)
 }
 
-function MapView({cat_id, parent_id}){
+const grab_all_categories = async () => {
+	return await GetAllCategories()
+}
+
+function MapView({cat_id, parent_id, side_pane_open_callback, check_auth}){
 	const [services, set_services] = useState(null)
 	const [cat, set_cat] = useState(null)
+	const [all_cats, set_all_cats] = useState(null)
 	const [parent, set_parent] = useState(null)
 
 	const [page_redir, do_redirect] = useState(null)
@@ -34,11 +40,15 @@ function MapView({cat_id, parent_id}){
 				.then(set_parent)
 				.catch((e) => console.error(e))
 		}
+
+		grab_all_categories()
+			.then(set_all_cats)
+			.catch((e) => console.error(e))
 	}, [cat_id, parent_id])
 	
 	const category_name = (cat === null) ? <h1>Loading...</h1> : <h1>{cat.name}</h1>
 
-	const serv_list = (services === null) 
+	let serv_list = (services === null) 
 		? <h2>Loading...</h2> 
 		: ((services.length === 0) 
 			? <h2>No services found.</h2> 
@@ -51,6 +61,15 @@ function MapView({cat_id, parent_id}){
 			}
 		)
 	)
+
+	if(services && check_auth("create", "/services")){
+		serv_list.push({
+			contents: <span><i className="fal fa-plus-circle" /> Create New Service</span>,
+			search_on: "create new service",
+			_id: null,
+			special: "create"
+		})
+	}
 
 	const top_nav = <p className="subtle-text">
 		<Link to="/cat">All Categories ></Link> {
@@ -69,7 +88,18 @@ function MapView({cat_id, parent_id}){
 			? <SearchableList 
 				objects={serv_list}
 				click_callback={(obj) => {
-					do_redirect(<Redirect path to={`/service/${obj._id}`} />)
+					if(obj._id){
+						do_redirect(<Redirect path to={`/service/${obj._id}`} />)
+					}else{
+						if(obj.special === "create"){
+							side_pane_open_callback(<ManageServicePane
+								commit_callback={() => side_pane_open_callback(null)}
+								this_service={null}
+								all_categories={all_cats}
+							/>)
+							
+						}
+					}
 				}}
 				selectable={false}
 				multi_select={false}
