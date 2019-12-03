@@ -23,7 +23,12 @@ export const Login = (user, pass) => {
 }
 
 export const Logout = () => {
-    return true
+    return fetch(`${GetBackendDomain()}/api/users/login`, {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+    .then((data) => console.log)
+    .catch((e) => console.error)
 }
 
 /* Returns  
@@ -31,11 +36,11 @@ export const Logout = () => {
  */
 export const GetUser = (other_user) => {
     if(other_user){
-        return fetch(`${GetBackendDomain}/api/users/profile`, {credentials: 'include'})
+        return fetch(`${GetBackendDomain()}/api/users/profile`, {credentials: 'include'})
             .then((data) => data.json())
             .catch((e) => console.error(e))
     }else{
-        return fetch(`${GetBackendDomain}/api/users/profile`, {credentials: 'include'})
+        return fetch(`${GetBackendDomain()}/api/users/profile`, {credentials: 'include'})
             .then((data) => data.json())
             .catch((e) => console.error(e))
     }
@@ -54,7 +59,7 @@ export const GetUser = (other_user) => {
  * on contexts)
  */
 export const GetUserRoles = (user_id) => {
-    return fetch(`${GetBackendDomain}/api/users/${user_id}/roles`)
+    return fetch(`${GetBackendDomain()}/api/users/${user_id}/roles`)
         .then((data) => data.json())
         .catch((e) => console.error(e))
 }
@@ -80,6 +85,7 @@ export const IsInContext = (role, context, permissive) => {
  * all actions must be validated on the backend!
  */
 export const CanUserDo = (user, action, context, permissive) => {
+    if(!user || !user.roles){return false}
     var role_works = false
     user.roles.forEach((role) => {
         if(
@@ -95,6 +101,7 @@ export const CanUserDo = (user, action, context, permissive) => {
 /* Determines whether a given user has the "administrator@/" role
  */
 export const IsUserAdmin = (user) => {
+    if(!user || !user.roles){return false}
 	let is_admin = false
 	user.roles.forEach((role) => {
 		if(role.action === "administrator" && role.context === "/"){

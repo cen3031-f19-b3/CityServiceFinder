@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
 import { GetMyEditableUsers } from '../../util/Users'
-import { CanUserDo, IsUserAdmin } from '../../util/Auth'
+import { IsUserAdmin } from '../../util/Auth'
 
 import SearchableList from '../../components/SearchableList/SearchableList'
 
 import './UserListView.css'
 
-function UserListView({logged_in_user, side_pane_open_callback}){
+function UserListView({logged_in_user, check_auth}){
 	const [users, set_users] = useState(null)
 	const [load_done, set_load_done] = useState(false)
 
@@ -37,7 +37,7 @@ function UserListView({logged_in_user, side_pane_open_callback}){
 		return {contents: <span>{usr_icon} {usr.email}</span>, search_on: usr.email + usr._id, _id: usr._id}
 	})
 
-	if(CanUserDo("create", "/users")){
+	if(check_auth("create", "/users")){
 		list_items.push({contents: <span><i className="fal fa-plus-circle" /> Create New User</span>, search_on: "create new user", _id: null, special: "create"})
 	}
 
