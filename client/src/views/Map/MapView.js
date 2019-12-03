@@ -10,13 +10,14 @@ const grab_services = async (cat_id) => {
 	return await GetCategoryServices(cat_id)
 }
 
-const grab_own_category = async (cat_id) => {
+const grab_one_category = async (cat_id) => {
 	return await GetSingleCategory(cat_id)
 }
 
-function MapView({cat_id}){
+function MapView({cat_id, parent_id}){
 	const [services, set_services] = useState(null)
 	const [cat, set_cat] = useState(null)
+	const [parent, set_parent] = useState(null)
 
 	const [page_redir, do_redirect] = useState(null)
 
@@ -25,10 +26,15 @@ function MapView({cat_id}){
 			.then(set_services)
 			.catch((e) => console.error(e))
 		
-		grab_own_category(cat_id)
+		grab_one_category(cat_id)
 			.then(set_cat)
 			.catch((e) => console.error(e))
-	}, [cat_id])
+		if(parent_id){
+			grab_one_category(parent_id)
+				.then(set_parent)
+				.catch((e) => console.error(e))
+		}
+	}, [cat_id, parent_id])
 	
 	const category_name = (cat === null) ? <h1>Loading...</h1> : <h1>{cat.name}</h1>
 
@@ -46,12 +52,20 @@ function MapView({cat_id}){
 		)
 	)
 
+	const top_nav = <p className="subtle-text">
+		<Link to="/cat">All Categories ></Link> {
+			(parent) 
+			? <Link to={"/cat"}>{parent.name}</Link> 
+			: null
+		}
+	</p>
+
 	return(<div className="map-page">
 		{page_redir}
-		{<p className="subtle-text"><Link to="/cat">All Categories ></Link></p>}
+		{top_nav}
 		{category_name}
-		{(services) ? <h2>The following services are available in this category:</h2> : null}
-		{(services) 
+		{(services && services.length !== 0) ? <h2>The following services are available in this category:</h2> : null}
+		{(services && services.length !== 0) 
 			? <SearchableList 
 				objects={serv_list}
 				click_callback={(obj) => {

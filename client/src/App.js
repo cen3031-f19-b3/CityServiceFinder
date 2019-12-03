@@ -86,6 +86,7 @@ const App = () => {
         <Route exact path="/cat/:category/:subcategory" render={(props) => {
           return <MapView
             cat_id={props.match.params.subcategory}
+            parent_id={props.match.params.category}
             user={current_user}
             {...props}
           />
