@@ -1,0 +1,27 @@
+div.map-page{
+	margin: 2em;
+}
+
+div.map-page h1{
+	border-bottom: 3px solid #074b69;
+}
+
+div.map-page h2{
+	color: #074b69;
+	font-weight: bold;
+	font-size: unset;
+}
+
+div.map-page a{
+	color: unset;
+	text-decoration: none;
+}
+
+div.map-page a:hover{
+	text-decoration: none;
+}
+
+div.map-page .subtle-text{
+    font-size: smaller;
+    color: #777;
+}
