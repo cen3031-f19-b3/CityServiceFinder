@@ -1,6 +1,5 @@
 import React from 'react';
 import {GetAllServices} from '../util/Services'
-//import call from 'react-native-phone-call'
 import './servicePage.css';
 
 
@@ -15,7 +14,6 @@ function DisplayOtherInfo({service}){
   }
   while(message.includes('•')){
     if(message.includes('•')){
-      console.log('FOUND THAT THING')
 
       message=message.replace('•', '')
 
@@ -208,9 +206,19 @@ function FindWebsite({service}){
   else{
 
     var website
+
     for(var i=0; i<numOfWebsites; i++){
       website=service.website[i]
+      if(website.includes('http')){
+
+      }
+      else{
+        website='http://'+website
+
+      }
+
       websites.push(website)
+
 
     }
     console.log('websites: ',websites)
@@ -222,6 +230,7 @@ function FindWebsite({service}){
         )) }
       </div>
     )
+
   }
 }
 
@@ -349,15 +358,13 @@ function FindService({data, name, loading_done, showMessage}){
 			</ul>
 		)
 	}
-  if(name.substring(0,4)==='www.'){
+
+  const service=data.find(service=> service.name===name);
+  if(name.includes('http')||name.includes('.com')||name.includes('://')){
     return(
-      <div>
-        Not found.
-      </div>
+      <div>404: NOT FOUND</div>
     )
   }
-  const service=data.find(service=> service.name===name);
-
 
   console.log('name: ',service.name)
   return(
