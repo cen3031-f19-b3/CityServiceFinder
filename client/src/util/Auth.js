@@ -26,18 +26,22 @@ export const Logout = () => {
     return true
 }
 
-export const GetUser = () => {
-    return {
-        email: "joe@joe.biz",
-        name: "Joe",
-        roles: [{
-            action: "administrator",
-            context: "/"
-        }]
+/* Returns  
+ *
+ */
+export const GetUser = (other_user) => {
+    if(other_user){
+        return fetch(`${GetBackendDomain}/api/users/profile`, {credentials: 'include'})
+            .then((data) => data.json())
+            .catch((e) => console.error(e))
+    }else{
+        return fetch(`${GetBackendDomain}/api/users/profile`, {credentials: 'include'})
+            .then((data) => data.json())
+            .catch((e) => console.error(e))
     }
 }
 
-/* Returns a list of all roles for the current user. Roles are given as an array
+/* Returns a list of all roles for the specified user. Roles are given as an array
  * of dicts, formatted as
  * {
  *   action: "some_action",
@@ -49,11 +53,10 @@ export const GetUser = () => {
  * user is allowed to take that action (see comment on IsInContexf for more
  * on contexts)
  */
-export const GetUserRoles = () => {
-    return [{
-        action: "administrator",
-        context: "/"
-    }] // For testing purposes only
+export const GetUserRoles = (user_id) => {
+    return fetch(`${GetBackendDomain}/api/users/${user_id}/roles`)
+        .then((data) => data.json())
+        .catch((e) => console.error(e))
 }
 
 /* Checks whether a given role applies in a certain action's context
@@ -76,9 +79,9 @@ export const IsInContext = (role, context, permissive) => {
  * This should ONLY be used to determine whether to show admin UI elements -
  * all actions must be validated on the backend!
  */
-export const CanUserDo = (action, context, permissive) => {
+export const CanUserDo = (user, action, context, permissive) => {
     var role_works = false
-    GetUserRoles().forEach((role) => {
+    user.roles.forEach((role) => {
         if(
             IsInContext(role, context, permissive) &&
             (role.action === action || role.action === "administrator" || action === "any")

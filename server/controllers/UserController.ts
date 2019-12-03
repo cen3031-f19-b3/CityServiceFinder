@@ -68,9 +68,9 @@ export const LoginUser = (req: Request, res: Response, next: any) => {
 export const GetProfile = (req: Request, res: Response, next: any) => {
   if (req.isAuthenticated()) {
     const user = req.user as IUser;
-    return res.status(200).json({loggedIn: true, email: user.email});
+    return res.status(200).json({loggedIn: true, email: user.email, roles: user.authorizations, _id: user._id});
   } else {
-    return res.status(400).json({loggedIn: false});
+    return res.status(401).json({loggedIn: false});
   }
 };
 
@@ -82,12 +82,12 @@ export const IsAuthenticated = (
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  return res.status(401).json({loggedIn: false});
 };
 
 export const IsAdmin = (req: Request, res: Response, next: NextFunction) => {
   if (!req.isAuthenticated()) {
-    return res.sendStatus(403);
+    return res.status(401).json({loggedIn: false});
   }
 
   const user = req.user as IUser;
@@ -101,12 +101,31 @@ export const IsAdmin = (req: Request, res: Response, next: NextFunction) => {
   return res.sendStatus(403);
 };
 
+export const HasContextualAuthorization = (action: String, context: String) => async (req: Request, res: Response, next: NextFunction) => {
+  if(!req.isAuthenticated()) {
+    return res.status(401).json({loggedIn: false});
+  }
+
+  const user = req.user as IUser;
+
+  const hasAdmin = user.authorizations.find((auth) => auth.action === 'administrator' && auth.context === '/');
+  const authorized = hasAdmin || user.authorizations.find((auth) => 
+    auth.action === action && context.substring(0, auth.context.length) === auth.context
+  );
+
+  if(authorized){
+    next();
+  }else{
+    return res.sendStatus(403);
+  }
+}
+
 export const GetCurrentUserRoles = (req: Request, res: Response) => {
   return res.send((req.user as IUser).authorizations);
 };
 
 export const GetUserRoles = async (req: Request, res: Response) => {
-  const user = await UserModel.findOne({email: req.params.email});
+  const user = await UserModel.findOne({_id: req.params.id});
 
   if (user) {
     return res.send(user.authorizations);
@@ -139,44 +158,4 @@ export const RemoveUserRole = async (req: Request, res: Response) => {
   user.authorizations = user.authorizations.filter((auth) => auth.action !== action && auth.context !== context);
   await user.save();
   return res.status(200).json(user.authorizations);
-};
-
-export const HasServiceAuthorization = (action: string[]) => async (req: Request, res: Response, next: NextFunction) => {
-  const user = req.user as IUser;
-
-  if (user.authorizations.find((auth) => {
-    if (auth.context === '/' && action.includes(auth.action)) {
-      return true;
-    } else if (auth.context === '/services' && action.includes(auth.action)) {
-      return true;
-    } else if (req.params.serviceid && auth.context === `/services/${req.params.serviceid}` && action.includes(auth.action)) {
-      return true;
-    } else {
-      return false;
-    }
-  })) {
-    next();
-  } else {
-    return res.sendStatus(403);
-  }
-};
-
-export const HasCategoryAuthorization = (action: string[]) => async (req: Request, res: Response, next: NextFunction) => {
-  const user = req.user as IUser;
-
-  if (user.authorizations.find((auth) => {
-    if (auth.context === '/' && action.includes(auth.action)) {
-      return true;
-    } else if (auth.context === '/categories' && action.includes(auth.action)) {
-      return true;
-    } else if (req.params.catid && auth.context === `/categories/${req.params.catid}` && action.includes(auth.action)) {
-      return true;
-    } else {
-      return false;
-    }
-  })) {
-    next();
-  } else {
-    return res.sendStatus(403);
-  }
 };
