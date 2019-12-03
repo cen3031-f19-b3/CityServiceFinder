@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 
 import { GetMyEditableUsers } from '../../util/Users'
-import { CanUserDo, IsUserAdmin } from '../../util/Auth'
+import { IsUserAdmin } from '../../util/Auth'
 
 import SearchableList from '../../components/SearchableList/SearchableList'
+import ManageUserPane from '../../components/SidePane/ManageUserPane'
 
 import './UserListView.css'
 
-function UserListView({logged_in_user, side_pane_open_callback}){
+function UserListView({logged_in_user, check_auth, side_pane_open_callback}){
 	const [users, set_users] = useState(null)
 	const [load_done, set_load_done] = useState(false)
 
@@ -34,10 +35,10 @@ function UserListView({logged_in_user, side_pane_open_callback}){
 
 	let list_items = users.map((usr) => {
 		const usr_icon = (IsUserAdmin(usr)) ? <i className="fal fa-user-crown" /> : <i className="fal fa-user" />
-		return {contents: <span>{usr_icon} {usr.email}</span>, search_on: usr.email + usr._id, _id: usr._id}
+		return {contents: <span>{usr_icon} {usr.name} ({usr.email})</span>, search_on: usr.name + usr.email + usr._id, _id: usr._id}
 	})
 
-	if(CanUserDo("create", "/users")){
+	if(check_auth("create", "/users")){
 		list_items.push({contents: <span><i className="fal fa-plus-circle" /> Create New User</span>, search_on: "create new user", _id: null, special: "create"})
 	}
 
@@ -47,9 +48,25 @@ function UserListView({logged_in_user, side_pane_open_callback}){
 			objects={list_items}
 			click_callback={(clicked, selected) => {
 				if(clicked._id){
-					window.location.assign(`/users/${clicked._id}`)
+					side_pane_open_callback(<ManageUserPane 
+						uid={clicked._id}
+						check_auth={check_auth}
+						commit_callback={() => {
+							side_pane_open_callback(null)
+							set_load_done(false)
+						}}
+					/>)
 				}else{
-					console.log(`Clicked special function ${clicked.special}`)
+					if(clicked.special === "create"){
+						side_pane_open_callback(<ManageUserPane 
+							uid={null}
+							check_auth={check_auth}
+							commit_callback={() => {
+								side_pane_open_callback(null)
+								set_load_done(false)
+							}}
+						/>)
+					}
 				}
 			}}
 			selectable={false}

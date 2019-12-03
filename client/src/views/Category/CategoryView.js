@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { GetAllCategories } from '../../util/Categories'
-import { CanUserDo } from '../../util/Auth'
 import CategoryCreatePane from '../../components/SidePane/CategoryCreatePane'
 import CategoryEditPane from '../../components/SidePane/CategoryEditPane'
 import CategoryDeletePane from '../../components/SidePane/CategoryDeletePane'
@@ -20,7 +19,7 @@ function is_parent(cat, all_cats){
 	}).length !== 0
 }
 
-function open_category(cat, all_cats, side_pane_open_callback, refresh_callback){
+function open_category(cat, all_cats, side_pane_open_callback, refresh_callback, check_auth){
 	if(is_parent(cat, all_cats)){
 		side_pane_open_callback(
 			<DrillDownPane 
@@ -28,6 +27,7 @@ function open_category(cat, all_cats, side_pane_open_callback, refresh_callback)
 				all_categories={all_cats}
 				side_pane_open_callback={side_pane_open_callback}
 				refresh_callback={refresh_callback}
+				check_auth={check_auth}
 			/>
 		)
 	}else{
@@ -72,20 +72,20 @@ function del_category(cat, side_pane_open_callback, refresh_callback){
 	)
 }
 
-function ServiceButton({ text, img, data, this_category, callback, edit_callback, del_callback, side_pane_open_callback, refresh_callback, id }) {
+function ServiceButton({ text, img, data, this_category, callback, edit_callback, del_callback, side_pane_open_callback, refresh_callback, check_auth, id }) {
 	let img_txt = "fal fa-" + img + " fa-3x"
 	let edit_btn = null
-	if(CanUserDo("edit", `/cat/${id}`) && edit_callback){
+	if(check_auth("edit", `/cat/${id}`) && edit_callback){
 		edit_btn = <i className={"service-button-edit fal fa-wrench"} title={`Edit ${text}`} onClick={() => edit_callback(this_category, data, side_pane_open_callback, refresh_callback)} />
 	}
 	let del_btn = null
-	if(CanUserDo("delete", `/cat/${id}`) && del_callback){
+	if(check_auth("delete", `/cat/${id}`) && del_callback){
 		del_btn = <i className={"service-button-delete fal fa-minus-circle"} title={`Delete ${text}`} onClick={() => del_callback(this_category, side_pane_open_callback, refresh_callback)} />
 	}
 	const btn_deck = (edit_btn || del_btn) ? <p className="btn-deck">{edit_btn} {del_btn}</p> : null;
 	return (
 		<div className="service-button-wrapper">
-			<div className="service-button" onClick={() => callback(this_category, data, side_pane_open_callback, refresh_callback)} title={text}>
+			<div className="service-button" onClick={() => callback(this_category, data, side_pane_open_callback, refresh_callback, check_auth)} title={text}>
 				<div className="service-button-main">
 					<p><i className={img_txt} /></p>
 					<p>{text}</p>
@@ -96,7 +96,7 @@ function ServiceButton({ text, img, data, this_category, callback, edit_callback
 	)
 }
 
-function CategoryView({side_pane_open_callback}) {
+function CategoryView({side_pane_open_callback, check_auth}) {
 	const [data, set_data] = useState([])
 	const [load_done, set_load_done] = useState(false)
 
@@ -137,6 +137,7 @@ function CategoryView({side_pane_open_callback}) {
 					key={category._id}
 					side_pane_open_callback={side_pane_open_callback}
 					refresh_callback={() => set_load_done(false)}
+					check_auth={check_auth}
 					id={category._id}
 				/>
 			)
@@ -144,7 +145,7 @@ function CategoryView({side_pane_open_callback}) {
 	
 	// If the user has permissions to create a category, then add a button for that
 	var edit_button = null
-	if(CanUserDo("create", "/cat")){
+	if(check_auth("create", "/cat")){
 		edit_button = 
 			<ServiceButton
 				text={"Create"}
@@ -155,6 +156,7 @@ function CategoryView({side_pane_open_callback}) {
 				del_callback={null}
 				side_pane_open_callback={side_pane_open_callback}
 				refresh_callback={() => set_load_done(false)}
+				check_auth={check_auth}
 			/>
 	}
 
