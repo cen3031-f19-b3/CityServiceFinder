@@ -1,0 +1,152 @@
+div.side-pane{
+    width: 60%;
+    height: 100%;
+    background-color: #fff;
+    border-left: 5px solid #074b69;
+    transition: width 1s, padding 1s, border-left 1s;
+
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    padding: 0 2em;
+    padding-top: 1em;
+}
+
+div.side-pane-hidden {
+    padding-right: 0;
+    padding-left: 0;
+    border-left: 0px solid #074b69;
+    width: 0 !important;
+}
+
+div.side-pane div.side-pane-content{
+    position: fixed;
+    width: calc(60% - 4em);
+    overflow: auto;
+    height: 90%;
+}
+
+div.side-pane i.panel-close{
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    width: min-content;
+    cursor: pointer;
+}
+
+
+div.side-pane h1{
+    border-bottom: 3px solid #074b69;
+}
+
+div.side-pane h2{
+    color: #074b69;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: unset;
+}
+
+div.side-pane table{
+    width: 100%;
+}
+
+div.side-pane .subtle-text{
+    font-size: smaller;
+    color: #777;
+}
+
+div.side-pane div.button {
+    width: max-content;
+    padding: 0.5em;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    color: #074b69;
+    background-color: #fff;
+    border: 1px solid #074b69;
+    border-radius: 3px;
+
+    transition: background-color 0.5s, color 0.5s;
+}
+
+div.side-pane div.button:hover{
+    background-color: #074b69;
+    color: #fff;
+}
+
+div.side-pane div.danger-button{
+    color: #e52207;
+    border: 1px solid #e52207;
+}
+
+div.side-pane div.danger-button:hover{
+    background-color: #e52207;
+}
+
+div.side-pane div.button-disabled{
+    background-color: #c2c2c2;
+    color: #888;
+    border: 1px solid #888;
+    cursor: not-allowed;
+}
+
+div.side-pane div.button-disabled:hover{
+    background-color: #c2c2c2;
+    color: #888;
+}
+
+div.side-pane input{
+    width: 80%;
+    margin: 1em auto;
+    padding: 0.5em;
+    border: 2px solid #c2c2c2;
+    border-radius: 5px;
+    display: block;
+    
+    transition: border 0.5s;
+}
+
+div.side-pane input:focus{
+    border: 2px solid #1dc2ae;
+}
+
+div.side-pane p.err-toast{
+    padding: 0.3em;
+    font-size: small;
+    text-align: center;
+    border: 2px solid #e52207;
+    background-color: #f75740;
+}
+
+div.side-pane p.err-toast-big{
+    font-size: normal;
+}
+
+div.side-pane ul{
+    padding-left: 0;
+}
+
+div.side-pane li{
+    background-color: #c8d8de;
+    color: black;
+    list-style: none;
+    padding: 0em 1em;
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+div.side-pane li:nth-child(even){
+    background-color: #9bcbde;
+    border-top: 1px solid #074b69;
+    border-bottom: 1px solid #074b69;
+}
+
+div.side-pane li:hover{
+    background-color: #59b9de;
+}
+
+div.side-pane a:hover{
+    text-decoration: none;
+}

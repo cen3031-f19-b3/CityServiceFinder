@@ -1,9 +1,15 @@
-a.service-button{
+div.service-button-wrapper{
     margin: auto;
     display: block;
 }
 
-a.service-button:hover{
+div.service-button{
+    margin: auto;
+    display: block;
+    cursor: pointer;
+}
+
+div.service-button:hover{
     text-decoration: none;
 }
 
@@ -19,17 +25,52 @@ div.service-button-main{
     transition-timing-function: linear;
 }
 
-a.service-button:hover div.service-button-main{
+div.service-button:hover div.service-button-main{
     border: 4px solid #1dc2ae;
 }
 
-a.service-button p{
+div.service-button p{
     color: #074b69;
     margin-bottom: 0.5em;
 }
 
-a.service-button:hover p{
+div.service-button:hover p{
     color: #074b69;
+}
+
+div.service-button-wrapper div.service-button-btn-container {
+    float: right;
+    z-index: 1;
+    padding-right: 1.5em;
+    padding-top: 1em;
+}
+
+i.service-button-edit{
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+i.service-button-edit:hover{
+    color: #1dc2ae;
+}
+
+i.service-button-delete{
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+i.service-button-delete:hover{
+    color: #e52207;
+}
+
+div.service-button-wrapper p.btn-deck{
+    z-index: 1;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -3em;
+    width: max-content;
+    display: block;
 }
 
 div.service-button-main i{

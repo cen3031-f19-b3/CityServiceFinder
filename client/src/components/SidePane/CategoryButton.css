@@ -1,0 +1,15 @@
+div.cat-button{
+    font-size: small;
+    border: 1px solid #074b69;
+    border-radius: 1em;
+    padding: 0.2em 0.5em;
+    margin: 0.2em;
+    width: max-content;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+div.cat-button:hover{
+    color: #e52207;
+    border: 1px solid #e52207;
+}
