@@ -27,7 +27,6 @@ export const Logout = () => {
         method: 'DELETE',
         credentials: 'include'
     })
-    .then((data) => console.log)
     .catch((e) => console.error)
 }
 

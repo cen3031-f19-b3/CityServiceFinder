@@ -36,15 +36,15 @@ export const RegisterUser = (
     password: req.body.password
   });
 
-  if(req.body.authorizations){
+  if(req.body.roles){
     let bad_auth: any[] = [];
-    req.body.authorizations.forEach((auth: any) => {
+    req.body.roles.forEach((auth: any) => {
       if(!check_auth(creating_user, auth.action, auth.context)){
         bad_auth.push(auth);
       }
     });
 
-    if(bad_auth){
+    if(bad_auth.length > 0){
       return res.status(403).json({bad_auth: bad_auth})
     }
   }
@@ -53,7 +53,7 @@ export const RegisterUser = (
     email: req.body.email,
     name: req.body.name,
     password: req.body.password,
-    authorizations: (req.body.authorizations) ? req.body.authorizations.map((auth: any) => {
+    authorizations: (req.body.roles) ? req.body.roles.map((auth: any) => {
       return {
         action: auth.action,
         context: auth.context
@@ -72,12 +72,7 @@ export const RegisterUser = (
       if (errr) {
         return next(errr);
       }
-      req.logIn(user, (errrr) => {
-        if (errrr) {
-          return next(errrr);
-        }
-        res.redirect('/');
-      });
+      res.sendStatus(200);
     });
   });
 };
@@ -261,6 +256,7 @@ export const ListUsers = async (req: Request, res: Response) => {
   }).map((usr) => {
     return {
       _id: usr._id,
+      name: usr.name,
       email: usr.email,
       roles: usr.authorizations
     }
@@ -297,16 +293,17 @@ export const UpdateUser = async (req: Request, res: Response, next: NextFunction
   }
 
   if(req.body.email){
-    if(await UserModel.findOne({email: req.body.email})){
+    const conflicting_users = await UserModel.find({email: req.body.email})
+    if(conflicting_users && conflicting_users.filter((itm) => {itm._id !== to_update._id}).length !== 0){
       return res.sendStatus(409);
     }else{
       to_update.email = req.body.email;
     }
   }
 
-  if(req.body.authorizations){
+  if(req.body.roles){
     let bad_auth: any[] = [];
-    req.body.authorizations.forEach((auth: any) => {
+    req.body.roles.forEach((auth: any) => {
       if(!check_auth(creating_user, auth.action, auth.context)){
         bad_auth.push(auth);
       }
@@ -315,7 +312,7 @@ export const UpdateUser = async (req: Request, res: Response, next: NextFunction
     if(bad_auth.length !== 0){
       return res.status(403).json({bad_auth: bad_auth});
     }else{
-      to_update.authorizations = req.body.authorizations
+      to_update.authorizations = req.body.roles
     }
   }
 
@@ -330,7 +327,7 @@ export const UpdateUser = async (req: Request, res: Response, next: NextFunction
     return res.status(200).json({
       name: to_update.name,
       email: to_update.email,
-      authorizations: to_update.authorizations,
+      roles: to_update.authorizations,
       _id: to_update._id
     });
   });
