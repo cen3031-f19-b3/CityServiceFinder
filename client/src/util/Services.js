@@ -17,3 +17,15 @@ export const GetService = (service_id) => {
         .then((data) => data.json())
         .catch((e) => console.error(e));
 };
+
+export const ReportService = (service_id, message) => {
+    return fetch(`${GetBackendDomain()}/api/services/${service_id}/report`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({message})
+    })
+        .then((data) => data.json())
+        .catch((e) => console.error(e));
+};

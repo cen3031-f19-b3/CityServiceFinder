@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { GetService } from "../../util/Services";
+import { GetService, ReportService } from "../../util/Services";
 
 import './ServicePage.css';
 
 export default ({ service_id }) => {
     const [service, setService] = useState({});
     const [loading, setLoading] = useState(true);
+    const [reportMsg, setReportMsg] = useState('');
+    const [showReport, setShowReport] = useState(false);
 
 
     useEffect(() => {
@@ -15,6 +17,13 @@ export default ({ service_id }) => {
         });
     }, [service_id]);
 
+    const submitReport = (e) => {
+        e.preventDefault();
+        ReportService(service_id, reportMsg);
+        setReportMsg('');
+        setShowReport(false);
+    }
+
 
     if (loading) {
         return (
@@ -22,7 +31,6 @@ export default ({ service_id }) => {
         )
     }
 
-    console.dir(service)
     return (
         <div className="container-fluid">
             <div className="text-center text">
@@ -123,6 +131,18 @@ export default ({ service_id }) => {
                         "No more info available."
                     }
                 </div>
+                <br/>
+                <button onClick={e => setShowReport(!showReport)}>Report a Problem</button>
+                {showReport ?
+                <div>
+                    <form onSubmit={submitReport}>
+                        <label>
+                            Description of Problem:
+                            <input type="textarea" name="descr" value={reportMsg} onChange={e => setReportMsg(e.target.value)}/>
+                        </label>
+                        <input type="submit" value="submit"/>
+                    </form>
+                </div> : ""}
             </div>
         </div>
     );
