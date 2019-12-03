@@ -1,70 +1,86 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
+import { IUser } from '../models/UserInterface';
 import { UserModel } from '../models/UserSchema';
 
-export const RegisterUser = (req: Request, res: Response) => {
-  UserModel.register(
-    new UserModel({ email: req.body.email }),
-    req.body.password,
-    (error, topUser) => {
-      if (error) {
-        console.log(`Error registering user: ${error}`);
-        return res.status(500).json({
-          success: false
-        });
-      } else {
-        passport.authenticate('local', (err, user, info) => {
-          if (err) {
-            console.log(`Error authenticating just-registered user: ${err}`);
-            return res.status(500).json({
-              success: false
-            });
-          }
+export const RegisterUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.dir({
+    email: req.body.email,
+    password: req.body.password
+  });
+  const user = new UserModel({
+    email: req.body.email,
+    password: req.body.password
+  });
 
-          if (!user) {
-            return res.status(401).json({
-              success: false
-            });
-          }
-
-          req.login(user, (lErr) => {
-            if (lErr) {
-              return res.status(500).json({
-                success: false
-              });
-            } else {
-              return res.json({
-                success: true
-              });
-            }
-          });
-
-          return res.json({
-            success: true
-          });
-        })(req, res);
-      }
+  UserModel.findOne({ email: req.body.email }, (err, existingUser) => {
+    if (err) {
+      return next(err);
     }
-  );
+    if (existingUser) {
+      return res.redirect('/signup');
+    }
+    user.save((errr) => {
+      if (errr) {
+        return next(errr);
+      }
+      req.logIn(user, (errrr) => {
+        if (errrr) {
+          return next(errrr);
+        }
+        res.redirect('/');
+      });
+    });
+  });
 };
 
 export const LoginUser = (req: Request, res: Response, next: any) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      console.log(`Error authenticating user: ${err}`);
-      return res.status(500).json({
-        success: false
-      });
-    }
-
-    if (!user) {
-      return res.status(401).json({
-        success: false
-      });
-    }
-
-    return res.json({
-      success: true
+  if (req.user) {
+    req.logIn(req.user, (errr) => {
+      if (errr) {
+        return next(errr);
+      }
+      res.status(200).json({ success: true });
     });
-  })(req, res);
+    return;
+  }
+
+  passport.authenticate('local', (err: Error, user: IUser, info: any) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect('/login');
+    }
+    req.logIn(user, (errr) => {
+      if (errr) {
+        return next(errr);
+      }
+      res.status(200).json({ success: true });
+    });
+  })(req, res, next);
+};
+
+export const GetProfile = (req: Request, res: Response, next: any) => {
+  if (req.isAuthenticated()) {
+    const user = req.user as IUser;
+    return res.status(200).json({loggedIn: true, email: user.email});
+  } else {
+    return res.status(400).json({loggedIn: false});
+  }
+};
+
+export const IsAuthenticated = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
 };
