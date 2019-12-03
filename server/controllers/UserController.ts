@@ -48,7 +48,7 @@ export const RegisterUser = (req: Request, res: Response) => {
   );
 };
 
-export const LoginUser = (req: Request, res: Response, next) => {
+export const LoginUser = (req: Request, res: Response, next: any) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       console.log(`Error authenticating user: ${err}`);
