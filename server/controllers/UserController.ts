@@ -1,4 +1,4 @@
-import e, { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { IAuthorization, IUser } from '../models/UserInterface';
 import { UserModel } from '../models/UserSchema';
