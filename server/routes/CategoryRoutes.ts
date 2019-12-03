@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { HasCategoryAuthorization, IsAuthenticated } from '../controllers/UserController';
-import { CreateCategory, DeleteCategory, GetAllCategories, GetSingleCategory, UpdateCategory, GetCategoryServices } from '../controllers/CategoryController';
+import { CreateCategory, DeleteCategory, GetAllCategories, GetSingleCategory, UpdateCategory, GetCategoryServices, ReportCategory } from '../controllers/CategoryController';
 
 export const CategoryRoutes = Router();
 
@@ -11,3 +11,5 @@ CategoryRoutes.get('/:catid/services', GetCategoryServices);
 CategoryRoutes.post('/new', IsAuthenticated, HasCategoryAuthorization(['administrator', 'create']), CreateCategory);
 CategoryRoutes.post('/:catid', IsAuthenticated, HasCategoryAuthorization(['administrator', 'update']), UpdateCategory);
 CategoryRoutes.delete('/:catid', IsAuthenticated, HasCategoryAuthorization(['administrator', 'delete']), DeleteCategory);
+
+CategoryRoutes.post('/:catid/report', ReportCategory);

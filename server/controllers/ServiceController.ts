@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ServiceModel } from '../models/ServiceSchema';
+import { SendReportMessage } from '../util/mail';
 
 export const GetAllServices = async (req: Request, res: Response) => {
   const services = await ServiceModel.find();
@@ -50,4 +51,19 @@ export const UpdateService = async (req: Request, res: Response) => {
       return res.json(serv);
     }
   );
+};
+
+export const ReportService = async (req: Request, res: Response) => {
+  const service = await ServiceModel.findById(req.params.serviceid);
+
+  SendReportMessage(`A user has reported the service with name: ${service.name}.\n
+  Service ID: ${service.id}\n\n
+  User Message: ${req.body.message}
+  `).then(() => {
+    return res.sendStatus(200);
+  }, () => {
+    return res.sendStatus(500);
+  }).catch(() => {
+    return res.sendStatus(500);
+  });
 };
