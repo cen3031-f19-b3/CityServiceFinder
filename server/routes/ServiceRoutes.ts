@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { CreateService, DeleteService, GetAllServices, GetSingleService, UpdateService } from '../controllers/ServiceController';
+import { HasServiceAuthorization, IsAuthenticated } from '../controllers/UserController';
 
 export const ServiceRoutes = Router();
 
 ServiceRoutes.get('/get', GetAllServices);
 ServiceRoutes.get('/:serviceid', GetSingleService);
-ServiceRoutes.post('/new', CreateService);
-ServiceRoutes.post('/:serviceid', UpdateService);
-ServiceRoutes.delete('/:serviceid', DeleteService);
+ServiceRoutes.post('/new', IsAuthenticated, HasServiceAuthorization(['administrator', 'create']), CreateService);
+ServiceRoutes.post('/:serviceid', IsAuthenticated, HasServiceAuthorization(['administrator', 'update']), UpdateService);
+ServiceRoutes.delete('/:serviceid', IsAuthenticated, HasServiceAuthorization(['administrator', 'delete']), DeleteService);

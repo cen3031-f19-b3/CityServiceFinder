@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
-import { IUser } from '../models/UserInterface';
+import { IAuthorization, IUser } from '../models/UserInterface';
 import { UserModel } from '../models/UserSchema';
 
 export const RegisterUser = (
@@ -83,4 +83,100 @@ export const IsAuthenticated = (
     return next();
   }
   res.redirect('/login');
+};
+
+export const IsAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.isAuthenticated()) {
+    return res.sendStatus(403);
+  }
+
+  const user = req.user as IUser;
+
+  const hasAdmin = user.authorizations.find((auth) => auth.action === 'administrator' && auth.context === '/');
+
+  if (hasAdmin) {
+    next();
+  }
+
+  return res.sendStatus(403);
+};
+
+export const GetCurrentUserRoles = (req: Request, res: Response) => {
+  return res.send((req.user as IUser).authorizations);
+};
+
+export const GetUserRoles = async (req: Request, res: Response) => {
+  const user = await UserModel.findOne({email: req.params.email});
+
+  if (user) {
+    return res.send(user.authorizations);
+  } else {
+    return res.sendStatus(404);
+  }
+};
+
+export const AddUserRole = async (req: Request, res: Response) => {
+  const user = await UserModel.findOne({email: req.params.email});
+
+  const action: string = req.body.action;
+  const context: string = req.body.context;
+
+  if (user.authorizations.find((auth) => auth.action === action && auth.context === context)) {
+    return res.status(200).json(user.authorizations);
+  } else {
+    user.authorizations.push({action, context} as IAuthorization);
+    await user.save();
+    return res.status(200).json(user.authorizations);
+  }
+};
+
+export const RemoveUserRole = async (req: Request, res: Response) => {
+  const user = await UserModel.findOne({email: req.params.email});
+
+  const action: string = req.body.action;
+  const context: string = req.body.context;
+
+  user.authorizations = user.authorizations.filter((auth) => auth.action !== action && auth.context !== context);
+  await user.save();
+  return res.status(200).json(user.authorizations);
+};
+
+export const HasServiceAuthorization = (action: string[]) => async (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user as IUser;
+
+  if (user.authorizations.find((auth) => {
+    if (auth.context === '/' && action.includes(auth.action)) {
+      return true;
+    } else if (auth.context === '/services' && action.includes(auth.action)) {
+      return true;
+    } else if (req.params.serviceid && auth.context === `/services/${req.params.serviceid}` && action.includes(auth.action)) {
+      return true;
+    } else {
+      return false;
+    }
+  })) {
+    next();
+  } else {
+    return res.sendStatus(403);
+  }
+};
+
+export const HasCategoryAuthorization = (action: string[]) => async (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user as IUser;
+
+  if (user.authorizations.find((auth) => {
+    if (auth.context === '/' && action.includes(auth.action)) {
+      return true;
+    } else if (auth.context === '/categories' && action.includes(auth.action)) {
+      return true;
+    } else if (req.params.catid && auth.context === `/categories/${req.params.catid}` && action.includes(auth.action)) {
+      return true;
+    } else {
+      return false;
+    }
+  })) {
+    next();
+  } else {
+    return res.sendStatus(403);
+  }
 };
