@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 
-import {Login} from '../util/Auth';
-import './LoginPane.css';
+import {Login} from '../../util/Auth';
 
 async function do_login(
         uname, password,
-        close_callback,
+        login_success_callback,
         set_pwd_inc,
         login_in_progress,
         set_in_progress_callback
@@ -21,7 +20,7 @@ async function do_login(
     if(res.success){
         set_pwd_inc(false)
         document.getElementById("user-login-form").reset()
-        close_callback(true)
+        login_success_callback()
     }else{
         set_pwd_inc(true)
     }
@@ -35,41 +34,31 @@ async function do_login(
 function PwdToast({show_me}){
     if(show_me){
         return(
-            <p className="pwd-toast">Login incorrect! Please try again.</p>
+            <p className="err-toast">Login incorrect! Please try again.</p>
         )
     }else{
         return(<p></p>)
     }
 }
 
-/* Displays a login pane on the right side of the screen.
+/* Displays a login screen - this should usually be displayed in a SidePane
  * 
- * Set is_displaying to show or hide the login pane (this is controlled by CSS)
- * close_callback is a callback function which takes a boolean. This will be 
- * false if the pane is closed without successfully logging in, or true if the
- * pane closes due to a successful login.
+ * login_success_callback is called when the user successfully logs in
  */
-function LoginPane({is_displaying, close_callback}){
+function LoginPane({login_success_callback}){
 
     const [uname, set_uname] = useState("")
     const [password, set_password] = useState("")
     const [pwd_inc, set_pwd_inc] = useState(false)
     const [login_in_progress, set_login_in_progress] = useState(false)
 
-    var login_pane_class = "login-pane"
-    if(!is_displaying){
-        login_pane_class = login_pane_class + " login-pane-hidden"
-    }
-
-    var login_btn_class = "login-button"
+    var login_btn_class = "button"
     if(login_in_progress){
-        login_btn_class = login_btn_class + " login-button-disabled"
+        login_btn_class = login_btn_class + " button-disabled"
     }
 
     return(
-        <div className={login_pane_class}>
-        <form id="user-login-form">
-            <i onClick={() => close_callback(false)} className="panel-close fal fa-times fa-2x" />
+        <form className="login-pane" id="user-login-form">
             <h1>Sign In</h1>
             <p>If you are an administrator or a service provider registered with the city, you can log in here to access administrative functionality.</p>
             <PwdToast show_me={pwd_inc} />
@@ -88,7 +77,7 @@ function LoginPane({is_displaying, close_callback}){
                 onClick={() => 
                     do_login(
                         uname.value, password.value,
-                        close_callback,
+                        login_success_callback,
                         set_pwd_inc,
                         login_in_progress,
                         set_login_in_progress
@@ -96,8 +85,7 @@ function LoginPane({is_displaying, close_callback}){
             >
                 <i className="fal fa-sign-in" /> Sign In
             </div>
-            </form>
-        </div>
+        </form>
     )
 }
 export default LoginPane;
