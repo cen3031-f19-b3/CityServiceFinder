@@ -5,7 +5,7 @@ import Header from "./components/Header/Header"
 import CategoryView from "./views/Category/CategoryView"
 import UserListView from "./views/User/UserListView"
 import MapView from "./views/Map/MapView"
-import ServicePage from "./components/servicePage"
+import ServicePage from "./views/Service/ServicePage"
 
 import SidePane from "./components/SidePane/SidePane"
 import LoginPane from "./components/SidePane/LoginPane"
@@ -93,9 +93,9 @@ const App = () => {
         }} />
 
         {/* Individual service links go to a service-info page */}
-        <Route path="/service/:category" render={(props) => {
+        <Route path="/service/:service_id" render={(props) => {
           return <ServicePage
-            cat_id={props.match.params.category}
+            service_id={props.match.params.service_id}
             user={current_user}
             {...props}
           />

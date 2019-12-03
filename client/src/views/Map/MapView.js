@@ -69,7 +69,7 @@ function MapView({cat_id, parent_id}){
 			? <SearchableList 
 				objects={serv_list}
 				click_callback={(obj) => {
-					do_redirect(<Redirect path to={`/services/${obj._id}`} />)
+					do_redirect(<Redirect path to={`/service/${obj._id}`} />)
 				}}
 				selectable={false}
 				multi_select={false}

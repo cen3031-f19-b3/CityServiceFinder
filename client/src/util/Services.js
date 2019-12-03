@@ -11,3 +11,9 @@ export const GetCategoryServices = (cat_id) => {
         .then((data) => data.json())
         .catch((e) => console.error(e))
 }
+
+export const GetService = (service_id) => {
+    return fetch(`${GetBackendDomain()}/api/services/${service_id}`)
+        .then((data) => data.json())
+        .catch((e) => console.error(e));
+};
