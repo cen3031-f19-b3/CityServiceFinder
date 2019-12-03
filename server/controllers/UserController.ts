@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import e, { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { IAuthorization, IUser } from '../models/UserInterface';
 import { UserModel } from '../models/UserSchema';
@@ -139,4 +139,44 @@ export const RemoveUserRole = async (req: Request, res: Response) => {
   user.authorizations = user.authorizations.filter((auth) => auth.action !== action && auth.context !== context);
   await user.save();
   return res.status(200).json(user.authorizations);
+};
+
+export const HasServiceAuthorization = (action: string[]) => async (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user as IUser;
+
+  if (user.authorizations.find((auth) => {
+    if (auth.context === '/' && action.includes(auth.action)) {
+      return true;
+    } else if (auth.context === '/services' && action.includes(auth.action)) {
+      return true;
+    } else if (req.params.serviceid && auth.context === `/services/${req.params.serviceid}` && action.includes(auth.action)) {
+      return true;
+    } else {
+      return false;
+    }
+  })) {
+    next();
+  } else {
+    return res.sendStatus(403);
+  }
+};
+
+export const HasCategoryAuthorization = (action: string[]) => async (req: Request, res: Response, next: NextFunction) => {
+  const user = req.user as IUser;
+
+  if (user.authorizations.find((auth) => {
+    if (auth.context === '/' && action.includes(auth.action)) {
+      return true;
+    } else if (auth.context === '/categories' && action.includes(auth.action)) {
+      return true;
+    } else if (req.params.catid && auth.context === `/categories/${req.params.catid}` && action.includes(auth.action)) {
+      return true;
+    } else {
+      return false;
+    }
+  })) {
+    next();
+  } else {
+    return res.sendStatus(403);
+  }
 };
