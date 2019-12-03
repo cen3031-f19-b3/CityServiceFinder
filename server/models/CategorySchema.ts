@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import ICategory from './CategoryInterface';
 
+// tslint:disable: object-literal-sort-keys
 const categorySchema = new Schema({
   name: {
     required: true,

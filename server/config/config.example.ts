@@ -1,16 +1,16 @@
-//This file holds any configuration variables we may need
-//'config.ts' is usually ignored by git to protect sensitive information, such as your database's username and password
+// This file holds any configuration variables we may need
+// 'config.ts' is usually ignored by git to protect sensitive information, such as your database's username and password
 
 export default {
     db: {
-        uri: '', //place the URI of your mongo database here.
+        uri: '', // place the URI of your mongo database here.
     },
     mail: {
-        username: '',
+        domain: '',
+        from: '',
         key: '',
         public_key: '',
-        from: '',
         to: [''],
-        domain: '',
+        username: '',
     },
 };
