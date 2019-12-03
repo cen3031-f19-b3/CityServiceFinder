@@ -15,6 +15,7 @@ export const GetSingleCategory = (cat_id) => {
 export const CreateCategory = (cat) => {
     return fetch(`${GetBackendDomain()}/api/categories/new`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -26,6 +27,7 @@ export const CreateCategory = (cat) => {
 export const UpdateCategory = (cat) => {
     return fetch(`${GetBackendDomain()}/api/categories/${cat._id}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -36,6 +38,7 @@ export const UpdateCategory = (cat) => {
 
 export const DeleteCategory = (cat_id) => {
     return fetch(`${GetBackendDomain()}/api/categories/${cat_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        credentials: 'include'
     })
 }
