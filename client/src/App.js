@@ -4,7 +4,7 @@ import NotFound from "./views/NotFound"
 import Header from "./components/Header/Header"
 import CategoryView from "./views/Category/CategoryView"
 import UserListView from "./views/User/UserListView"
-import MapPage from "./components/MapPage"
+import MapView from "./views/Map/MapView"
 import ServicePage from "./components/servicePage"
 
 import SidePane from "./components/SidePane/SidePane"
@@ -73,28 +73,28 @@ const App = () => {
           <Redirect to="/" />
         </Route>
 
-        {/* Individual category links go to a MapPage */}
+        {/* Individual category links go to a MapView */}
 				<Route exact path="/cat/:category" render={(props) => {
-          return <MapPage 
-            cat={props.match.params.category}
+          return <MapView 
+            cat_id={props.match.params.category}
             user={current_user}
             {...props}
           />
         }} />
 
-        {/* Subcategory links also go to a MapPage */}
+        {/* Subcategory links also go to a MapView */}
         <Route exact path="/cat/:category/:subcategory" render={(props) => {
-          return <MapPage
-            cat={props.match.params.subcategory}
+          return <MapView
+            cat_id={props.match.params.subcategory}
             user={current_user}
             {...props}
           />
         }} />
 
         {/* Individual service links go to a service-info page */}
-        <Route path="/service/:name" render={(props) => {
+        <Route path="/service/:category" render={(props) => {
           return <ServicePage
-            name={props.match.params.name}
+            cat_id={props.match.params.category}
             user={current_user}
             {...props}
           />

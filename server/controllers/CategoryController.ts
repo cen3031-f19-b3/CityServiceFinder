@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { CategoryModel } from '../models/CategorySchema';
+import { ServiceModel } from '../models/ServiceSchema';
 
 /**
  * A Route to retrieve all categories from the database.
@@ -18,6 +19,11 @@ export const GetSingleCategory = async (req: Request, res: Response) => {
     .populate('subcategory_of');
   res.send(category);
 };
+
+export const GetCategoryServices = async (req: Request, res: Response) => {
+  const services = await ServiceModel.find({categories: req.params.catid});
+  res.send(services);
+}
 
 export const DeleteCategory = async (req: Request, res: Response) => {
   CategoryModel.findOneAndRemove({_id: req.params.catid}, (err) => {

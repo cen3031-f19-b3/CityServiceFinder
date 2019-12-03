@@ -6,6 +6,12 @@ export const GetAllCategories = () => {
         .catch((e) => console.error(e))
 }
 
+export const GetSingleCategory = (cat_id) => {
+    return fetch(`${GetBackendDomain()}/api/categories/${cat_id}`)
+        .then((data) => data.json())
+        .catch((e) => console.error(e))
+}
+
 export const CreateCategory = (cat) => {
     return fetch(`${GetBackendDomain()}/api/categories/new`, {
         method: 'POST',
