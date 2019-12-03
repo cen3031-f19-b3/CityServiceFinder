@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import passport from '../config/passport';
+import passport from 'passport';
 import { UserModel } from '../models/UserSchema';
 
 export const RegisterUser = (req: Request, res: Response) => {
@@ -27,8 +27,8 @@ export const RegisterUser = (req: Request, res: Response) => {
             });
           }
 
-          req.login(user, (err) => {
-            if (err) {
+          req.login(user, (lErr) => {
+            if (lErr) {
               return res.status(500).json({
                 success: false
               });
@@ -67,11 +67,4 @@ export const LoginUser = (req: Request, res: Response, next: any) => {
       success: true
     });
   })(req, res);
-};
-
-export const GetUsers = (req: Request, res: Response) => {
-  console.dir(req.isAuthenticated());
-  console.dir(req.user);
-  console.log(req.cookies)
-  return res.sendStatus(200);
 };

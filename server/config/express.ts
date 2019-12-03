@@ -1,13 +1,12 @@
 import bodyParser from 'body-parser';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express from 'express';
 import session from 'express-session';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-import path from 'path';
 import passport from 'passport';
-import passportLocal from 'passport-local';
+import path from 'path';
 
 import config from './config';
 

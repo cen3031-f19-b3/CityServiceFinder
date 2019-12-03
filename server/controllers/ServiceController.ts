@@ -6,6 +6,11 @@ export const GetAllServices = async (req: Request, res: Response) => {
   res.send(services);
 };
 
+export const GetSingleService = async (req: Request, res: Response) => {
+  const service = await ServiceModel.findById(req.params.serviceid).populate('categories');
+  res.send(service);
+};
+
 export const DeleteService = async (req: Request, res: Response) => {
   ServiceModel.deleteOne(req.body.id, (err) => {
     if (err) {
@@ -33,7 +38,7 @@ export const CreateService = async (req: Request, res: Response) => {
   return result;
 };
 
-export const UpdateCategory = async (req: Request, res: Response) => {
+export const UpdateService = async (req: Request, res: Response) => {
   ServiceModel.findByIdAndUpdate(
     req.body.id,
     { ...req.body.update },
