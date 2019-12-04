@@ -64,7 +64,7 @@ function MapView({cat_id, parent_id, side_pane_open_callback, check_auth}){
 
 	const can_create = check_auth("create", "/services")
 
-	if(can_create){
+	if(services && can_create){
 		const create_btn = {
 			contents: <span><i className="fal fa-plus-circle" /> Create New Service</span>,
 			search_on: "create new service",
@@ -91,7 +91,7 @@ function MapView({cat_id, parent_id, side_pane_open_callback, check_auth}){
 		{top_nav}
 		{category_name}
 		{(services && services.length !== 0) ? <h2>The following services are available in this category:</h2> : null}
-		{(can_create || (services && services.length !== 0)) 
+		{((services && (can_create || services.length) !== 0)) 
 			? <SearchableList 
 				objects={serv_list}
 				click_callback={(obj) => {
