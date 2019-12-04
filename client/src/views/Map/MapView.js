@@ -62,13 +62,20 @@ function MapView({cat_id, parent_id, side_pane_open_callback, check_auth}){
 		)
 	)
 
-	if(services && check_auth("create", "/services")){
-		serv_list.push({
+	const can_create = check_auth("create", "/services")
+
+	if(can_create){
+		const create_btn = {
 			contents: <span><i className="fal fa-plus-circle" /> Create New Service</span>,
 			search_on: "create new service",
 			_id: null,
 			special: "create"
-		})
+		}
+		if(services.length === 0){
+			serv_list = [create_btn]
+		}else{
+			serv_list.push(create_btn)
+		}
 	}
 
 	const top_nav = <p className="subtle-text">
@@ -84,7 +91,7 @@ function MapView({cat_id, parent_id, side_pane_open_callback, check_auth}){
 		{top_nav}
 		{category_name}
 		{(services && services.length !== 0) ? <h2>The following services are available in this category:</h2> : null}
-		{(services && services.length !== 0) 
+		{(can_create || (services && services.length !== 0)) 
 			? <SearchableList 
 				objects={serv_list}
 				click_callback={(obj) => {
