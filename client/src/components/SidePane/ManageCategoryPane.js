@@ -99,7 +99,10 @@ function ManageCategoryPane({category, all_categories, commit_callback}) {
 	// src/components/SearchableList/SearchableList.js)
 	const list_items = all_categories.filter((cat) => {
 		if(category && cat._id === category._id){
-			return false
+			return false // Exclude this category
+		}
+		if(cat.subcategory_of.length !== 0){
+			return false // Subcategories of subcategories are not allowed.
 		}
 		let is_parent = false
 		cat_parents.forEach((parent_cat) => {
