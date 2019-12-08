@@ -7,6 +7,13 @@ import { UserModel } from '../models/UserSchema';
  * See the comments for HasContextualAuthorization(), below, for more information.
  */
 export const check_auth = (user: IUser, action: String, context: String) => {
+  if(action === "any"){
+    // Special case - see if the user can perform *any* action in this context.
+    // This should not ever be part of a permission granted to a user.
+    return user.authorizations.find((auth) => 
+    (context.substring(0, auth.context.length) === auth.context)
+    || (auth.action === 'administrator' && auth.context === '/'));
+  }
   return user.authorizations.find((auth) => 
     (auth.action === action && context.substring(0, auth.context.length) === auth.context)
     || (auth.action === 'administrator' && auth.context === '/'));
