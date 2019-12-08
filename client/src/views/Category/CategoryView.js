@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { GetAllCategories } from '../../util/Categories'
-import CategoryCreatePane from '../../components/SidePane/CategoryCreatePane'
-import CategoryEditPane from '../../components/SidePane/CategoryEditPane'
+import ManageCategoryPane from '../../components/SidePane/ManageCategoryPane'
 import CategoryDeletePane from '../../components/SidePane/CategoryDeletePane'
 import DrillDownPane from '../../components/SidePane/DrillDownPane'
 
@@ -37,25 +36,28 @@ function open_category(cat, all_cats, side_pane_open_callback, refresh_callback,
 
 function create_category(cat, all_cats, side_pane_open_callback, refresh_callback){
 	side_pane_open_callback(
-		<CategoryCreatePane
+		<ManageCategoryPane
+			category={null}
+			all_categories={all_cats}
 			commit_callback={() => {
 				side_pane_open_callback(null)
 				refresh_callback()
 			}}
-			all_categories={all_cats}
+			side_pane_open_callback={side_pane_open_callback}
 		/>
 	)
 }
 
 function edit_category(cat, all_cats, side_pane_open_callback, refresh_callback){
 	side_pane_open_callback(
-		<CategoryEditPane 
+		<ManageCategoryPane 
 			category={cat}
 			all_categories={all_cats}
 			commit_callback={() => {
 				side_pane_open_callback(null)
 				refresh_callback()
 			}}
+			side_pane_open_callback={side_pane_open_callback}
 		/>
 	)
 }
