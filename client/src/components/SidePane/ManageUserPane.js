@@ -86,7 +86,7 @@ function ManageUserPane({uid, check_auth, commit_callback}){
 	}
 
 	const submit_role = (event) => {
-		if(!(event.key === "Enter")){return}
+		if(event && !(event.key === "Enter")){return}
 		if(ract && ract.value && rctx && rctx.value){
 			const new_roles = roles.concat({action: ract.value, context: rctx.value})
 			set_roles(new_roles)
@@ -101,6 +101,7 @@ function ManageUserPane({uid, check_auth, commit_callback}){
 				<td><input type="text" onKeyPress={submit_role} placeholder="action" ref={set_ract} /></td>
 				<td><i className="fal fa-at fa-2x" /></td>
 				<td><input type="text" onKeyPress={submit_role} placeholder="context" ref={set_rctx} /></td>
+				<td style={{cursor: "pointer", color: "#074b69"}} onClick={() => submit_role(null)}><i className="fal fa-plus-circle fa-2x" /></td>
 			</tr>
 		</tbody>
 	</table>
