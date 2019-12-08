@@ -33,6 +33,27 @@ async function commit_changes(category, create_new, in_progress_set, commit_call
 	commit_callback()
 }
 
+/* Determines if a category has children - i.e. there is some other category
+ * which has this category as a parent
+ */
+function get_children(potential_parent, all_categories){
+	if(!potential_parent){
+		return []
+	}
+
+	let children = []
+
+	for(let cat of all_categories){
+		for(let parent of cat.subcategory_of){
+			if(parent._id === potential_parent._id){
+				children.push(cat)
+			}
+		}
+	}
+
+	return children
+}
+
 /* This component displays three things, in a <tr>:
  * 
  * 1. The name of a property (e.g. name, icon, etc)
@@ -88,56 +109,65 @@ function ManageCategoryPane({category, all_categories, commit_callback}) {
 	const [cat_img, set_img] = useState(null)
 
 	// Holds the current list of selected parents for this category
-	const [cat_parents, set_cat_parents] = useState([])
+	const [cat_parents, set_cat_parents] = useState(category ? category.subcategory_of : [])
+
 
 	// Disable the button if an operation is in progress
 	let btn_class = "button"
 	if(commit_in_progress) {btn_class += " button-disabled"}
 
-	// Find all categories which can be added as parents to this one, and parse
-	// them into items which can be placed into a <SearchableList/> (defined in
-	// src/components/SearchableList/SearchableList.js)
-	const list_items = all_categories.filter((cat) => {
-		if(category && cat._id === category._id){
-			return false // Exclude this category
-		}
-		if(cat.subcategory_of.length !== 0){
-			return false // Subcategories of subcategories are not allowed.
-		}
-		let is_parent = false
-		cat_parents.forEach((parent_cat) => {
-			if(parent_cat._id === cat._id){
-				is_parent = true
+	// If this category does NOT have children of its own, it can be made a
+	// child of a different category. Subcategories of subcategories are not
+	// supported, so categories with children cannot themselves become children
+	let my_children = get_children(category, all_categories)
+	let parent_category_list = null
+	if(my_children.length > 0){
+		parent_category_list = <div>
+			<h2>Parent Categories (disabled)</h2>
+			<p className="subtle-text">
+				This category has children, so it cannot be made a child of any other categories. 
+				To make this into a subcategory, remove it from the "Parent Categories" lists of 
+				the following categories:
+			</p>
+			<ul>
+				{my_children.map((child) => <li>{child.name}</li>)}
+			</ul>
+		</div>
+	}else{
+		// Find all categories which can be added as parents to this one, and parse
+		// them into items which can be placed into a <SearchableList/> (defined in
+		// src/components/SearchableList/SearchableList.js)
+		const list_items = all_categories.filter((cat) => {
+			if(category && cat._id === category._id){
+				return false // Exclude this category
+			}
+			if(cat.subcategory_of.length !== 0){
+				return false // Subcategories of subcategories are not allowed.
+			}
+			let is_parent = false
+			cat_parents.forEach((parent_cat) => {
+				if(parent_cat._id === cat._id){
+					is_parent = true
+				}
+			})
+			return !is_parent
+		}).map((cat) => {
+			return {
+				contents: <span>{cat.name}</span>,
+				search_on: cat.name + cat._id,
+				_id: cat._id
 			}
 		})
-		return !is_parent
-	}).map((cat) => {
-		return {
-			contents: <span>{cat.name}</span>,
-			search_on: cat.name + cat._id,
-			_id: cat._id
-		}
-	})
 
-	// Turn all current parent categories into <CatButton /> objects (defined
-	// in this file, above)
-	const cat_buttons = cat_parents.map((cat) => {
-		return <CatButton name={cat.name} _id={cat._id} on_click_callback={(_id) => {
-			set_cat_parents(cat_parents.filter((pcat) => {return pcat._id !== _id}))
-		}} />
-	})
+		// Turn all current parent categories into <CatButton /> objects (defined
+		// in this file, above)
+		const cat_buttons = cat_parents.map((cat) => {
+			return <CatButton name={cat.name} _id={cat._id} on_click_callback={(_id) => {
+				set_cat_parents(cat_parents.filter((pcat) => {return pcat._id !== _id}))
+			}} />
+		})
 
-	// Parse these objects into the main pane
-	return(
-		<div className="category-edit-pane">
-			<h1>{category ? category.name : "Create New Category"}</h1>
-			{category ? <p className="subtle-text">Category ID: {category._id}</p> : null}
-			<table>
-				<tbody>
-					<CEPEntry name="Name" initial_value={category ? category.name : ""} fref={set_cn} placeholder="Category Name" info_text="The display name for this category." />
-					<CEPEntry name="Icon" initial_value={category ? category.img : ""} fref={set_img} placeholder="Category Icon" info_text="The icon to display for this category. Icon names can be found at fontawesome.com/icons." />
-				</tbody>
-			</table>
+		parent_category_list = <div>
 			<h2>Parent Categories <i className="fal fa-info-circle" title="If this should be a subcategory, what categories should it be a subcategory of?" /></h2>
 			<div className="cat-button-deck d-flex flex-wrap">
 				{cat_buttons}
@@ -156,6 +186,21 @@ function ManageCategoryPane({category, all_categories, commit_callback}) {
 					multi_select={false}
 				/>
 			</div>
+		</div>
+	}
+
+	// Parse these objects into the main pane
+	return(
+		<div className="category-edit-pane">
+			<h1>{category ? category.name : "Create New Category"}</h1>
+			{category ? <p className="subtle-text">Category ID: {category._id}</p> : null}
+			<table>
+				<tbody>
+					<CEPEntry name="Name" initial_value={category ? category.name : ""} fref={set_cn} placeholder="Category Name" info_text="The display name for this category." />
+					<CEPEntry name="Icon" initial_value={category ? category.img : ""} fref={set_img} placeholder="Category Icon" info_text="The icon to display for this category. Icon names can be found at fontawesome.com/icons." />
+				</tbody>
+			</table>
+			{parent_category_list}
 			<div className={btn_class} onClick={() => commit_changes(
 				{_id: (category ? category._id : null), name: cat_name.value, img: cat_img.value, subcategory_of: cat_parents},
 				category ? false : true,
