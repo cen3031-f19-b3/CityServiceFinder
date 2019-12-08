@@ -168,7 +168,7 @@ function ManageUserPane({uid, check_auth, commit_callback}){
 				it in the box below, in the form action@context and then press enter. To remove 
 				a role, click its entry in the list below. For more	detailed documentation, visit
 				<a 
-					href="https://github.com/cen3031-f19-b3/CityServiceFinder/wiki/Role-Management"
+					href="https://github.com/cen3031-f19-b3/CityServiceFinder/wiki/Permissions"
 				> the project wiki</a>.
 			</p>
 			{role_input}
