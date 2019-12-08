@@ -5,7 +5,7 @@
  * is set up to create a new category.
  */
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import { CreateCategory, UpdateCategory } from '../../util/Categories'
 
@@ -96,7 +96,7 @@ function CatButton({name, _id, on_click_callback}){
  * `commit_callback` is called whenever a user clicks the "commit"/"add"
  *                   button, after the server has responded.
  */
-function ManageCategoryPane({category, all_categories, commit_callback}) {
+function ManageCategoryPane({category, all_categories, commit_callback, side_pane_open_callback}) {
 	// States
 
 	// used to determine whether to disable the "commit"/"add" button
@@ -111,6 +111,19 @@ function ManageCategoryPane({category, all_categories, commit_callback}) {
 	// Holds the current list of selected parents for this category
 	const [cat_parents, set_cat_parents] = useState(category ? category.subcategory_of : [])
 
+	// If the category changes, the input values need to reset
+	const category_changed = useCallback(() => {
+		if(cat_name){
+			cat_name.value = category.name
+		}
+		if(cat_img){
+			cat_img.value = (category.img ? category.img : "")
+		}
+		if(cat_parents){
+			set_cat_parents(category.subcategory_of)
+		}
+	}, [category, cat_name, cat_img, cat_parents])
+	useEffect(category_changed, [category])
 
 	// Disable the button if an operation is in progress
 	let btn_class = "button"
@@ -130,7 +143,14 @@ function ManageCategoryPane({category, all_categories, commit_callback}) {
 				the following categories:
 			</p>
 			<ul>
-				{my_children.map((child) => <li>{child.name}</li>)}
+				{my_children.map((child) => <li onClick={() => {
+					side_pane_open_callback(<ManageCategoryPane 
+						category={child}
+						all_categories={all_categories}
+						commit_callback={commit_callback}
+						side_pane_open_callback={side_pane_open_callback}
+					/>)
+				}}>{child.name}</li>)}
 			</ul>
 		</div>
 	}else{

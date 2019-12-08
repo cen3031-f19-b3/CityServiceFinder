@@ -43,6 +43,7 @@ function create_category(cat, all_cats, side_pane_open_callback, refresh_callbac
 				side_pane_open_callback(null)
 				refresh_callback()
 			}}
+			side_pane_open_callback={side_pane_open_callback}
 		/>
 	)
 }
@@ -56,6 +57,7 @@ function edit_category(cat, all_cats, side_pane_open_callback, refresh_callback)
 				side_pane_open_callback(null)
 				refresh_callback()
 			}}
+			side_pane_open_callback={side_pane_open_callback}
 		/>
 	)
 }

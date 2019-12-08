@@ -13,6 +13,7 @@ function SubcatItem({parent, subcategory, all_cats, enable_edit, enable_delete, 
 					refresh_callback()
 					side_pane_open_callback(null)
 				}}
+				side_pane_open_callback={side_pane_open_callback}
 			/>)
 		}} />
 		: null
@@ -82,6 +83,7 @@ function DrillDownPane({category, all_categories, side_pane_open_callback, refre
 					side_pane_open_callback(null)
 					refresh_callback()
 				}}
+				side_pane_open_callback={side_pane_open_callback}
 			/>)
 		}}>
 			<span><i className="fal fa-plus-circle" /> Create New</span>
