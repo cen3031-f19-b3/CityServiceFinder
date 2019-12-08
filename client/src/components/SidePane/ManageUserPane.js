@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import { GetSingleUser, UpdateUser, CreateUser, DeleteUser } from '../../util/Users'
 
@@ -60,21 +60,26 @@ function ManageUserPane({uid, check_auth, commit_callback}){
 
 	const [commit_in_progress, set_cip] = useState(false)
 
-	useEffect(() => {
+	const on_user_change = useCallback(() => {
 		if(uid){
 			fetch_user(uid)
 				.then((new_user) => {
+					if(uname){uname.value = new_user.name}
+					if(uemail){uemail.value = new_user.email}
 					set_user(new_user)
 					set_roles(new_user.roles)
 				})
 				.catch(console.error)
 		}else{
+			if(uname){uname.value = ""}
+			if(uemail){uemail.value = ""}
 			set_user({
 				name: "",
 				email: ""
 			})
 		}
-	}, [uid])
+	}, [uid, uname, uemail])
+	useEffect(on_user_change, [uid])
 
 	if(!user){
 		return <div className="manage-user-pane"><h1>Manage User</h1><h2>Loading...</h2></div>
@@ -94,7 +99,7 @@ function ManageUserPane({uid, check_auth, commit_callback}){
 		<tbody>
 			<tr>
 				<td><input type="text" onKeyPress={submit_role} placeholder="action" ref={set_ract} /></td>
-				<td>@</td>
+				<td><i className="fal fa-at fa-2x" /></td>
 				<td><input type="text" onKeyPress={submit_role} placeholder="context" ref={set_rctx} /></td>
 			</tr>
 		</tbody>
@@ -157,7 +162,14 @@ function ManageUserPane({uid, check_auth, commit_callback}){
 	const role_section = uid
 		? <div>
 			<h2>Roles</h2>
-			<p className="subtle-text">These are the roles currently defined for {user.name}. To remove a role, click on it. To add a new role, type it in the box below, in the form action@context.</p>
+			<p className="subtle-text">
+				These are the roles currently defined for {user.name}. To add a new role, type 
+				it in the box below, in the form action@context and then press enter. To remove 
+				a role, click its entry in the list below. For more	detailed documentation, visit
+				<a 
+					href="https://github.com/cen3031-f19-b3/CityServiceFinder/wiki/Role-Management"
+				> the project wiki</a>.
+			</p>
 			{role_input}
 			{role_box}
 		</div>
