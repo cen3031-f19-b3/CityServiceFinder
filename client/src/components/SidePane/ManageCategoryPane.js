@@ -96,7 +96,7 @@ function CatButton({name, _id, on_click_callback}){
  * `commit_callback` is called whenever a user clicks the "commit"/"add"
  *                   button, after the server has responded.
  */
-function ManageCategoryPane({category, all_categories, commit_callback, side_pane_open_callback}) {
+function ManageCategoryPane({category, all_categories, commit_callback, side_pane_open_callback, initial_parents}) {
 	// States
 
 	// used to determine whether to disable the "commit"/"add" button
@@ -120,9 +120,9 @@ function ManageCategoryPane({category, all_categories, commit_callback, side_pan
 			cat_img.value = (category.img ? category.img : "")
 		}
 		if(cat_parents){
-			set_cat_parents(category.subcategory_of)
+			set_cat_parents(category ? category.subcategory_of : (initial_parents ? initial_parents : []))
 		}
-	}, [category, cat_name, cat_img, cat_parents])
+	}, [category, cat_name, cat_img, cat_parents, initial_parents])
 	useEffect(category_changed, [category])
 
 	// Disable the button if an operation is in progress

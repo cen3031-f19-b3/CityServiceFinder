@@ -78,6 +78,7 @@ function DrillDownPane({category, all_categories, side_pane_open_callback, refre
 			side_pane_open_callback(<ManageCategoryPane
 				category={null}
 				all_categories={all_categories}
+				initial_parents={[category]}
 				required_parent={required_parent}
 				commit_callback={() => {
 					side_pane_open_callback(null)
