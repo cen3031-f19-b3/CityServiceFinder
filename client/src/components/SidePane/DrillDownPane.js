@@ -1,13 +1,12 @@
 import React from 'react'
 
-import CategoryCreatePane from './CategoryCreatePane'
-import CategoryEditPane from './CategoryEditPane'
+import ManageCategoryPane from './ManageCategoryPane'
 import CategoryDeletePane from './CategoryDeletePane'
 
 function SubcatItem({parent, subcategory, all_cats, enable_edit, enable_delete, side_pane_open_callback, refresh_callback}){
 	const edit_btn = enable_edit
 		? <i className={"service-button-edit fal fa-wrench"} title={`Edit ${subcategory.name}`} onClick={() => {
-			side_pane_open_callback(<CategoryEditPane 
+			side_pane_open_callback(<ManageCategoryPane 
 				category={subcategory}
 				all_categories={all_cats}
 				commit_callback={() => {
@@ -75,13 +74,14 @@ function DrillDownPane({category, all_categories, side_pane_open_callback, refre
 	if(check_auth("create", `/cat/${category._id}`)){
 		let required_parent = (check_auth("create", "/cat")) ? null : category._id
 		create_button = <li onClick={() => {
-			side_pane_open_callback(<CategoryCreatePane 
+			side_pane_open_callback(<ManageCategoryPane
+				category={null}
+				all_categories={all_categories}
+				required_parent={required_parent}
 				commit_callback={() => {
 					side_pane_open_callback(null)
 					refresh_callback()
 				}}
-				all_categories={all_categories}
-				required_parent={required_parent}
 			/>)
 		}}>
 			<span><i className="fal fa-plus-circle" /> Create New</span>
