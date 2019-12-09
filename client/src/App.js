@@ -33,7 +33,7 @@ const App = () => {
     fetch_user().then(set_current_user).catch(console.error)
   }, [])
 
-  const check_auth = (action, context) => CanUserDo(current_user, action, context)
+  const check_auth = (action, context, permissive) => CanUserDo(current_user, action, context, permissive)
 
   const login_pane = <LoginPane
     login_success_callback={() => {
