@@ -1,5 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-This project contains an example project board meant to showcase how one can be used. The issues posted to it are not real issues.
+# City Service Finder
+
+An app to find services offered in the City of Gainesville. It is currently deployed here: https://city-service-finder.herokuapp.com/
+
+## Features
+
+Here are all the features and screenshots: https://docs.google.com/document/d/1jO83ZBFf65GwaXcaOxT2YOPMELcRrCHowtsrej14hRE/edit?usp=sharing
 
 #### _**IMPORTANT NOTE**_ -
 This project does not have a mongoDB connection setup. For:
